@@ -21,7 +21,7 @@ struct NameEntryView: View {
                     Spacer().frame(height: 40)
                     VStack(spacing: 32) {
                         VStack(spacing: 16) {
-                            StepIndicatorView(current: 1, total: 4)
+                            StepIndicatorView(current: 1, total: 5)
                                 .padding(.horizontal, 24)
                             ZStack {
                                 Circle()

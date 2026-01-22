@@ -1,13 +1,15 @@
 import SwiftUI
+import UIKit
 
 struct VerificationDetailView: View {
-    let fullNameNepali: String
-    let fullNameEnglish: String
-    let uploadedDocuments: [String]
-    let selfieImage: UIImage?
-    let verificationLocation: String
+    var fullNameNepali: String = "राम बहादुर श्रेष्ठ"
+    var fullNameEnglish: String = "Ram Bahadur Shrestha"
+    var uploadedDocuments: [String] = ["नागरिकता राष्ट्रिय परिचयपत्र"]
+    var selfieImage: UIImage?
+    var verificationLocation: String = "काठमाडौं, केंद्रीय कार्यालय"
 
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     private var isDarkMode: Bool { colorScheme == .dark }
 
     var body: some View {
@@ -96,7 +98,12 @@ struct VerificationDetailView: View {
                                             .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                     }
                                     .frame(maxWidth: .infinity)
-                                    .frame(height: 100)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 120)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(isDarkMode ? Color.white.opacity(0.08) : Color(.tertiarySystemBackground))
+                                    )
                                 }
                             }
 
@@ -113,15 +120,20 @@ struct VerificationDetailView: View {
                             }
 
                             HStack(spacing: 12) {
-                                Button(action: {}) {
-                                    Text("फिर्ता जानुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
-                                        .cornerRadius(14)
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                                 Button(action: {}) {
                                     Text("प्रमाणीकरण को लागि पठाउनुहोस्")
                                         .font(.system(size: 18, weight: .semibold))

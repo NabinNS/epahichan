@@ -1,15 +1,26 @@
 import SwiftUI
 import UIKit
 
+enum ImagePickerSource {
+    case camera(front: Bool)
+    case photoLibrary
+}
+
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
-    @Environment(\.dismiss) var dismiss
+    let source: ImagePickerSource
+    var onDismiss: (() -> Void)?
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        picker.sourceType = .camera
-        picker.cameraDevice = .front
+        switch source {
+        case .camera(let front):
+            picker.sourceType = .camera
+            picker.cameraDevice = front ? .front : .rear
+        case .photoLibrary:
+            picker.sourceType = .photoLibrary
+        }
         picker.allowsEditing = false
         return picker
     }
@@ -31,22 +42,26 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let image = info[.originalImage] as? UIImage {
                 parent.image = image
             }
-            parent.dismiss()
+            parent.onDismiss?()
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.dismiss()
+            parent.onDismiss?()
         }
     }
 }
 
 struct SelfieCaptureView: View {
     @State private var selfieImage: UIImage?
-    @State private var showCamera = false
+    @State private var showSourcePicker = false
+    @State private var imagePickerSource: ImagePickerSourceWrapper?
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     
     private var isDarkMode: Bool { colorScheme == .dark }
+    
+    private var cameraAvailable: Bool { UIImagePickerController.isSourceTypeAvailable(.camera) }
+    private var libraryAvailable: Bool { UIImagePickerController.isSourceTypeAvailable(.photoLibrary) }
     
     var body: some View {
         ZStack {
@@ -58,7 +73,7 @@ struct SelfieCaptureView: View {
                     Spacer().frame(height: 40)
                     VStack(spacing: 32) {
                         VStack(spacing: 16) {
-                            StepIndicatorView(current: 4, total: 4)
+                            StepIndicatorView(current: 4, total: 5)
                                 .padding(.horizontal, 24)
                             ZStack {
                                 Circle()
@@ -113,11 +128,11 @@ struct SelfieCaptureView: View {
                                     )
                                 }
                                 
-                                Button(action: { showCamera = true }) {
+                                Button(action: { showSourcePicker = true }) {
                                     HStack(spacing: 12) {
                                         Image(systemName: "camera.fill")
                                             .font(.system(size: 18))
-                                        Text(selfieImage == nil ? "फोटो खिच्नुहोस्" : "फोटो पुन खिच्नुहोस्")
+                                        Text(selfieImage == nil ? "फोटो थप्नुहोस्" : "फोटो बदल्नुहोस्")
                                             .font(.body)
                                     }
                                     .foregroundColor(.white)
@@ -144,7 +159,7 @@ struct SelfieCaptureView: View {
                                 }
                                 .buttonStyle(.plain)
                                 
-                                Button(action: {}) {
+                                NavigationLink(destination: LocationSelectionView()) {
                                     Text("अगाडि बढ्नुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
@@ -153,6 +168,7 @@ struct SelfieCaptureView: View {
                                         .background(Color.activeBlue)
                                         .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                             }
                         }
                         .padding(.horizontal, 24)
@@ -163,10 +179,36 @@ struct SelfieCaptureView: View {
         }
         .navigationTitle("सेल्फी")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showCamera) {
-            ImagePicker(image: $selfieImage)
+        .confirmationDialog("फोटो थप्नुहोस्", isPresented: $showSourcePicker, titleVisibility: .visible) {
+            if cameraAvailable {
+                Button("क्यामेरा बाट खिच्नुहोस्") {
+                    showSourcePicker = false
+                    imagePickerSource = ImagePickerSourceWrapper(source: .camera(front: true))
+                }
+            }
+            if libraryAvailable {
+                Button("ग्यालरी बाट छान्नुहोस्") {
+                    showSourcePicker = false
+                    imagePickerSource = ImagePickerSourceWrapper(source: .photoLibrary)
+                }
+            }
+            Button("रद्द", role: .cancel) {
+                showSourcePicker = false
+            }
+        } message: {
+            Text("क्यामेरा बाट खिच्नुहोस् वा ग्यालरी बाट फोटो छान्नुहोस्")
+        }
+        .sheet(item: $imagePickerSource) { wrapper in
+            ImagePicker(image: $selfieImage, source: wrapper.source, onDismiss: {
+                imagePickerSource = nil
+            })
         }
     }
+}
+
+private struct ImagePickerSourceWrapper: Identifiable {
+    let id = UUID()
+    let source: ImagePickerSource
 }
 
 #Preview {

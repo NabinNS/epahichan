@@ -4,6 +4,7 @@ struct LocationSelectionView: View {
     @State private var searchText: String = ""
     @State private var selectedLocation: String?
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     @FocusState private var isSearchFocused: Bool
 
     private var isDarkMode: Bool { colorScheme == .dark }
@@ -45,6 +46,8 @@ struct LocationSelectionView: View {
                     Spacer().frame(height: 40)
                     VStack(spacing: 32) {
                         VStack(spacing: 16) {
+                            StepIndicatorView(current: 5, total: 5)
+                                .padding(.horizontal, 24)
                             ZStack {
                                 Circle()
                                     .fill(Color.activeBlue.opacity(0.15))
@@ -121,16 +124,21 @@ struct LocationSelectionView: View {
                             .frame(maxHeight: 280)
 
                             HStack(spacing: 12) {
-                                Button(action: {}) {
-                                    Text("फिर्ता जानुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
-                                        .cornerRadius(14)
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
                                 }
-                                Button(action: {}) {
+                                .buttonStyle(.plain)
+                                NavigationLink(destination: VerificationDetailView()) {
                                     Text("अगाडि बढ्नुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
@@ -139,6 +147,7 @@ struct LocationSelectionView: View {
                                         .background(Color.activeBlue)
                                         .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                             }
                         }
                         .padding(.horizontal, 24)
