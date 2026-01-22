@@ -21,7 +21,7 @@ struct SplashScreenView: View {
                         .scaleEffect(size)
                         .opacity(opacity)
                     
-                    Text("Epahichan")
+                    Text("ई-पहिचान")
                         .font(.system(size: 36, weight: .bold))
                         .foregroundColor(.primary)
                         .opacity(opacity)

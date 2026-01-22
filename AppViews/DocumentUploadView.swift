@@ -9,179 +9,194 @@ struct DocumentUploadView: View {
     @State private var frontPhotoPicker: PhotosPickerItem?
     @State private var backPhotoPicker: PhotosPickerItem?
     @State private var singlePhotoPicker: PhotosPickerItem?
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
+    
+    private var isDarkMode: Bool { colorScheme == .dark }
     
     var isNagrita: Bool {
         documentType == "नागरिकता राष्ट्रिय परिचयपत्र"
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                ScrollView {
-                    VStack {
-                        Spacer()
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            StepIndicatorView(current: 3, total: 4)
+                                .padding(.horizontal, 24)
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "photo.badge.plus")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
+                            }
+                            VStack(spacing: 8) {
+                                Text("कागजात अपलोड")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("\(documentType) को फोटो अपलोड गर्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
+                            }
+                        }
+                        .padding(.top, 24)
                         
-                        VStack(alignment: .leading, spacing: 24) {
-                            
-                            Text("\(documentType) को फोटो अपलोड गर्नुहोस्")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                            
+                        VStack(alignment: .leading, spacing: 20) {
                             if isNagrita {
-                                VStack(spacing: 16) {
+                                VStack(alignment: .leading, spacing: 12) {
                                     Text("अगाडि (Front)")
-                                        .font(.headline)
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(isDarkMode ? .white.opacity(0.9) : .secondary)
                                     
                                     if let frontImage = frontImage {
                                         Image(uiImage: frontImage)
                                             .resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                            .aspectRatio(contentMode: .fill)
                                             .frame(height: 200)
-                                            .background(Color(.secondarySystemBackground))
-                                            .overlay(
-                                                Rectangle()
-                                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                            )
+                                            .clipped()
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
                                     }
                                     
                                     PhotosPicker(selection: $frontPhotoPicker, matching: .images) {
-                                        HStack {
+                                        HStack(spacing: 12) {
                                             Image(systemName: "photo.badge.plus")
+                                                .font(.system(size: 18))
                                             Text(frontImage == nil ? "फोटो छान्नुहोस्" : "फोटो बदल्नुहोस्")
                                                 .font(.body)
                                         }
+                                        .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
-                                        .foregroundColor(.blue)
-                                        .background(Color(.secondarySystemBackground))
-                                        .overlay(
-                                            Rectangle()
-                                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                        )
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
                                     }
                                 }
                                 
-                                VStack(spacing: 16) {
+                                VStack(alignment: .leading, spacing: 12) {
                                     Text("पछाडि (Back)")
-                                        .font(.headline)
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(isDarkMode ? .white.opacity(0.9) : .secondary)
                                     
                                     if let backImage = backImage {
                                         Image(uiImage: backImage)
                                             .resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                            .aspectRatio(contentMode: .fill)
                                             .frame(height: 200)
-                                            .background(Color(.secondarySystemBackground))
-                                            .overlay(
-                                                Rectangle()
-                                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                            )
+                                            .clipped()
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
                                     }
                                     
                                     PhotosPicker(selection: $backPhotoPicker, matching: .images) {
-                                        HStack {
+                                        HStack(spacing: 12) {
                                             Image(systemName: "photo.badge.plus")
+                                                .font(.system(size: 18))
                                             Text(backImage == nil ? "फोटो छान्नुहोस्" : "फोटो बदल्नुहोस्")
                                                 .font(.body)
                                         }
+                                        .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
-                                        .foregroundColor(.blue)
-                                        .background(Color(.secondarySystemBackground))
-                                        .overlay(
-                                            Rectangle()
-                                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                        )
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
                                     }
                                 }
                             } else {
-                                VStack(spacing: 16) {
+                                VStack(alignment: .leading, spacing: 12) {
                                     if let singleImage = singleImage {
                                         Image(uiImage: singleImage)
                                             .resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                            .aspectRatio(contentMode: .fill)
                                             .frame(height: 200)
-                                            .background(Color(.secondarySystemBackground))
-                                            .overlay(
-                                                Rectangle()
-                                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                            )
+                                            .clipped()
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
                                     }
                                     
                                     PhotosPicker(selection: $singlePhotoPicker, matching: .images) {
-                                        HStack {
+                                        HStack(spacing: 12) {
                                             Image(systemName: "photo.badge.plus")
+                                                .font(.system(size: 18))
                                             Text(singleImage == nil ? "फोटो छान्नुहोस्" : "फोटो बदल्नुहोस्")
                                                 .font(.body)
                                         }
+                                        .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
-                                        .foregroundColor(.blue)
-                                        .background(Color(.secondarySystemBackground))
-                                        .overlay(
-                                            Rectangle()
-                                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                        )
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
                                     }
                                 }
                             }
                             
-                            HStack(spacing: 0) {
-                                Button(action: {
-                                }) {
-                                    Text("फिर्ता जानुहोस्")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
-                                        .foregroundColor(.white)
-                                        .background(Color.black)
+                            HStack(spacing: 12) {
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                                 
-                                Button(action: {
-                                }) {
+                                NavigationLink(destination: SelfieCaptureView()) {
                                     Text("अगाडि बढ्नुहोस्")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
+                                        .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
-                                        .background(Color.blue)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                             }
                         }
-                        .padding(24)
-                        .background(Color.white)
-                        .padding(.horizontal, 32)
-                        
-                        Spacer()
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
                 }
             }
-            .navigationTitle("फोटो अपलोड")
-            .navigationBarTitleDisplayMode(.inline)
-            .onChange(of: frontPhotoPicker) { oldValue, newValue in
-                Task {
-                    if let data = try? await newValue?.loadTransferable(type: Data.self),
-                       let image = UIImage(data: data) {
-                        frontImage = image
-                    }
+        }
+        .navigationTitle("फोटो अपलोड")
+        .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: frontPhotoPicker) { oldValue, newValue in
+            Task {
+                if let data = try? await newValue?.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    frontImage = image
                 }
             }
-            .onChange(of: backPhotoPicker) { oldValue, newValue in
-                Task {
-                    if let data = try? await newValue?.loadTransferable(type: Data.self),
-                       let image = UIImage(data: data) {
-                        backImage = image
-                    }
+        }
+        .onChange(of: backPhotoPicker) { oldValue, newValue in
+            Task {
+                if let data = try? await newValue?.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    backImage = image
                 }
             }
-            .onChange(of: singlePhotoPicker) { oldValue, newValue in
-                Task {
-                    if let data = try? await newValue?.loadTransferable(type: Data.self),
-                       let image = UIImage(data: data) {
-                        singleImage = image
-                    }
+        }
+        .onChange(of: singlePhotoPicker) { oldValue, newValue in
+            Task {
+                if let data = try? await newValue?.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    singleImage = image
                 }
             }
         }
@@ -189,5 +204,7 @@ struct DocumentUploadView: View {
 }
 
 #Preview {
-    DocumentUploadView(documentType: "नागरिकता राष्ट्रिय परिचयपत्र")
+    NavigationView {
+        DocumentUploadView(documentType: "नागरिकता राष्ट्रिय परिचयपत्र")
+    }
 }

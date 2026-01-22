@@ -1,68 +1,72 @@
 import SwiftUI
 
 struct VerificationStatusView: View {
+    @Environment(\.colorScheme) private var colorScheme
+    private var isDarkMode: Bool { colorScheme == .dark }
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
                         VStack(spacing: 16) {
-                            Text("स्वागतम नबिन")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
-                            
-                            Text("तपाईंको पहिचान प्रमाणीकरण को लागि पठाइएको छ")
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "person.crop.circle.badge.checkmark")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
+                            }
+                            VStack(spacing: 8) {
+                                Text("स्वागतम नबिन")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("तपाईंको पहिचान प्रमाणीकरण को लागि पठाइएको छ")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
+                            }
                         }
-                        .frame(maxWidth: .infinity)
-                        
-                        VStack(spacing: 12) {
-                            Button(action: {
-                            }) {
+                        .padding(.top, 24)
+
+                        VStack(spacing: 16) {
+                            Button(action: {}) {
                                 Text("स्थिति हेर्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
-                                    .background(Color.blue)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(Color.activeBlue)
+                                    .cornerRadius(14)
                             }
-                            
-                            Button(action: {
-                            }) {
+                            Button(action: {}) {
                                 Text("थप ईस्थान मा पठाउनुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
-                                    .background(Color.blue)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(Color.activeBlue)
+                                    .cornerRadius(14)
                             }
                         }
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 32)
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("स्थिति")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("स्थिति")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    VerificationStatusView()
+    NavigationView { VerificationStatusView() }
 }

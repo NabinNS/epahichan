@@ -6,170 +6,175 @@ struct VerificationDetailView: View {
     let uploadedDocuments: [String]
     let selfieImage: UIImage?
     let verificationLocation: String
-    
+
+    @Environment(\.colorScheme) private var colorScheme
+    private var isDarkMode: Bool { colorScheme == .dark }
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                ScrollView {
-                    VStack {
-                        Spacer()
-                        
-                        VStack(alignment: .leading, spacing: 24) {
-                            
-                            Text("विवरण समीक्षा गर्नुहोस्")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                            
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("पूरा नाम")
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
-                                
-                                VStack(alignment: .leading, spacing: 8) {
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "checkmark.shield.fill")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
+                            }
+                            VStack(spacing: 8) {
+                                Text("विवरण समीक्षा गर्नुहोस्")
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("सबै विवरण सहि छ भने पठाउनुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
+                            }
+                        }
+                        .padding(.top, 24)
+
+                        VStack(alignment: .leading, spacing: 20) {
+                            detailCard(title: "पूरा नाम") {
+                                VStack(alignment: .leading, spacing: 6) {
                                     Text(fullNameNepali)
                                         .font(.body)
-                                    
+                                        .foregroundColor(isDarkMode ? .white : .primary)
                                     Text(fullNameEnglish)
-                                        .font(.body)
-                                        .foregroundColor(.secondary)
+                                        .font(.subheadline)
+                                        .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(16)
-                                .background(Color(.secondarySystemBackground))
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                )
                             }
-                            
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("अपलोड गरिएका कागजात")
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
-                                
-                                VStack(spacing: 8) {
-                                    ForEach(uploadedDocuments, id: \.self) { document in
-                                        HStack {
+
+                            detailCard(title: "अपलोड गरिएका कागजात") {
+                                VStack(spacing: 10) {
+                                    ForEach(uploadedDocuments, id: \.self) { doc in
+                                        HStack(spacing: 12) {
                                             Image(systemName: "doc.fill")
-                                                .foregroundColor(.blue)
-                                            Text(document)
+                                                .font(.system(size: 18))
+                                                .foregroundColor(Color.activeBlue)
+                                            Text(doc)
                                                 .font(.body)
+                                                .foregroundColor(isDarkMode ? .white : .primary)
                                             Spacer()
                                             Image(systemName: "checkmark.circle.fill")
-                                                .foregroundColor(.green)
+                                                .foregroundColor(Color.activeBlue)
                                         }
-                                        .padding(.horizontal, 16)
-                                        .frame(height: 44)
-                                        .background(Color(.secondarySystemBackground))
-                                        .overlay(
-                                            Rectangle()
-                                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                                        .padding(12)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(isDarkMode ? Color.white.opacity(0.08) : Color(.tertiarySystemBackground))
                                         )
                                     }
                                 }
                             }
-                            
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("सेल्फी फोटो")
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
-                                
-                                if let selfieImage = selfieImage {
-                                    Image(uiImage: selfieImage)
+
+                            detailCard(title: "सेल्फी फोटो") {
+                                if let img = selfieImage {
+                                    Image(uiImage: img)
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
+                                        .aspectRatio(contentMode: .fill)
                                         .frame(maxHeight: 200)
-                                        .background(Color(.secondarySystemBackground))
-                                        .overlay(
-                                            Rectangle()
-                                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                        )
+                                        .clipped()
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
                                 } else {
-                                    HStack {
+                                    HStack(spacing: 12) {
                                         Image(systemName: "camera.fill")
-                                            .foregroundColor(.secondary)
+                                            .font(.system(size: 24))
+                                            .foregroundColor(isDarkMode ? .white.opacity(0.5) : .secondary)
                                         Text("सेल्फी अपलोड गरिएको छैन")
                                             .font(.body)
-                                            .foregroundColor(.secondary)
+                                            .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                     }
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 100)
-                                    .background(Color(.secondarySystemBackground))
-                                    .overlay(
-                                        Rectangle()
-                                            .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                    )
                                 }
                             }
-                            
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("प्रमाणीकरण ईस्थान")
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
-                                
-                                HStack {
+
+                            detailCard(title: "प्रमाणीकरण ईस्थान") {
+                                HStack(spacing: 12) {
                                     Image(systemName: "mappin.circle.fill")
-                                        .foregroundColor(.blue)
+                                        .font(.system(size: 22))
+                                        .foregroundColor(Color.activeBlue)
                                     Text(verificationLocation)
                                         .font(.body)
+                                        .foregroundColor(isDarkMode ? .white : .primary)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(16)
-                                .background(Color(.secondarySystemBackground))
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                )
                             }
-                            
-                            HStack(spacing: 0) {
-                                Button(action: {
-                                }) {
+
+                            HStack(spacing: 12) {
+                                Button(action: {}) {
                                     Text("फिर्ता जानुहोस्")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
+                                        .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
-                                        .background(Color.black)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                        .cornerRadius(14)
                                 }
-                                
-                                Button(action: {
-                                }) {
+                                Button(action: {}) {
                                     Text("प्रमाणीकरण को लागि पठाउनुहोस्")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
+                                        .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
-                                        .background(Color.blue)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
                                 }
                             }
                         }
-                        .padding(24)
-                        .background(Color.white)
-                        .padding(.horizontal, 32)
-                        
-                        Spacer()
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
                 }
             }
-            .navigationTitle("विवरण")
-            .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationTitle("विवरण")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func detailCard<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(isDarkMode ? .white.opacity(0.9) : .secondary)
+            content()
+                .padding(16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+                )
         }
     }
 }
 
 #Preview {
-    VerificationDetailView(
-        fullNameNepali: "राम बहादुर श्रेष्ठ",
-        fullNameEnglish: "Ram Bahadur Shrestha",
-        uploadedDocuments: [
-            "नागरिकता राष्ट्रिय परिचयपत्र",
-            "चालक अनुमति पत्र"
-        ],
-        selfieImage: nil,
-        verificationLocation: "काठमाडौं, केंद्रीय कार्यालय"
-    )
+    NavigationView {
+        VerificationDetailView(
+            fullNameNepali: "राम बहादुर श्रेष्ठ",
+            fullNameEnglish: "Ram Bahadur Shrestha",
+            uploadedDocuments: [
+                "नागरिकता राष्ट्रिय परिचयपत्र",
+                "चालक अनुमति पत्र"
+            ],
+            selfieImage: nil,
+            verificationLocation: "काठमाडौं, केंद्रीय कार्यालय"
+        )
+    }
 }

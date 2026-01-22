@@ -3,82 +3,123 @@ import SwiftUI
 struct NameEntryView: View {
     @State private var nepaliName: String = ""
     @State private var englishName: String = ""
-    
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
+    @FocusState private var focusedField: Field?
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
+    enum Field { case nepali, english }
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        
-                        Text("पूरा नाम नेपाली मा लेख्नुहोस्")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
-                        TextField("", text: $nepaliName)
-                            .font(.title3)
-                            .padding(.horizontal, 16)
-                            .frame(height: 50)
-                            .background(Color(.secondarySystemBackground))
-                            .overlay(
-                                Rectangle()
-                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                            )
-                        
-                        Text("पूरा नाम English मा लेख्नुहोस्")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
-                        TextField("", text: $englishName)
-                            .font(.title3)
-                            .padding(.horizontal, 16)
-                            .frame(height: 50)
-                            .background(Color(.secondarySystemBackground))
-                            .overlay(
-                                Rectangle()
-                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                            )
-                        
-                        HStack(spacing: 0) {
-                            Button(action: {
-                            }) {
-                                Text("रद्द गर्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.black)
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            StepIndicatorView(current: 1, total: 4)
+                                .padding(.horizontal, 24)
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "person.text.rectangle.fill")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
                             }
-                            
-                            Button(action: {
-                            }) {
-                                Text("अगाडि बढ्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
+                            VStack(spacing: 8) {
+                                Text("नाम प्रविष्टि")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("पूरा नाम नेपाली र इंग्लिशमा लेख्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
                             }
                         }
+                        .padding(.top, 24)
+
+                        VStack(alignment: .leading, spacing: 20) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("पूरा नाम नेपाली मा लेख्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(focusedField == .nepali ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                TextField("", text: $nepaliName)
+                                    .font(.body)
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .padding(16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(focusedField == .nepali ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .nepali ? 2 : 1)
+                                    )
+                                    .focused($focusedField, equals: .nepali)
+                            }
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("पूरा नाम English मा लेख्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(focusedField == .english ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                TextField("", text: $englishName)
+                                    .font(.body)
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .padding(16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(focusedField == .english ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .english ? 2 : 1)
+                                    )
+                                    .focused($focusedField, equals: .english)
+                            }
+                            HStack(spacing: 12) {
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
+                                }
+                                .buttonStyle(.plain)
+                                NavigationLink(destination: DocumentSelectionView()) {
+                                    Text("अगाडि बढ्नुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 32)
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("नाम")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("नाम")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    NameEntryView()
+    NavigationView { NameEntryView() }
 }

@@ -3,7 +3,11 @@ import SwiftUI
 struct LocationSelectionView: View {
     @State private var searchText: String = ""
     @State private var selectedLocation: String?
-    
+    @Environment(\.colorScheme) private var colorScheme
+    @FocusState private var isSearchFocused: Bool
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
     let locations = [
         "काठमाडौं, केंद्रीय कार्यालय",
         "ललितपुर, कार्यालय",
@@ -24,110 +28,130 @@ struct LocationSelectionView: View {
         "हेटौडा, कार्यालय",
         "नारायणगढ, कार्यालय"
     ]
-    
+
     var filteredLocations: [String] {
-        if searchText.isEmpty {
-            return locations
-        } else {
-            return locations.filter { $0.localizedCaseInsensitiveContains(searchText) }
-        }
+        searchText.isEmpty
+            ? locations
+            : locations.filter { $0.localizedCaseInsensitiveContains(searchText) }
     }
-    
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        
-                        Text("प्रमाणीकरण ईस्थान छान्नुहोस्")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.secondary)
-                            
-                            TextField("स्थान खोज्नुहोस्", text: $searchText)
-                                .font(.body)
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "mappin.circle.fill")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
+                            }
+                            VStack(spacing: 8) {
+                                Text("प्रमाणीकरण ईस्थान छान्नुहोस्")
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("तपाईं प्रमाणीकरण गर्न चाहनुहुन्ने ईस्थान छान्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
+                            }
                         }
-                        .padding(.horizontal, 16)
-                        .frame(height: 50)
-                        .background(Color(.secondarySystemBackground))
-                        .overlay(
-                            Rectangle()
-                                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                        )
-                        
-                        ScrollView {
-                            VStack(spacing: 12) {
-                                ForEach(filteredLocations, id: \.self) { location in
-                                    Button(action: {
-                                        selectedLocation = location
-                                    }) {
-                                        HStack {
-                                            Text(location)
-                                                .font(.body)
-                                                .foregroundColor(.primary)
-                                            
-                                            Spacer()
-                                            
-                                            Image(systemName: selectedLocation == location ? "checkmark.circle.fill" : "circle")
-                                                .foregroundColor(selectedLocation == location ? .blue : .gray)
+                        .padding(.top, 24)
+
+                        VStack(alignment: .leading, spacing: 20) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("स्थान खोज्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isSearchFocused ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                HStack(spacing: 12) {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                    TextField("स्थान खोज्नुहोस्", text: $searchText)
+                                        .font(.body)
+                                        .foregroundColor(isDarkMode ? .white : .primary)
+                                        .focused($isSearchFocused)
+                                }
+                                .padding(16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(isSearchFocused ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: isSearchFocused ? 2 : 1)
+                                )
+                            }
+
+                            ScrollView {
+                                VStack(spacing: 12) {
+                                    ForEach(filteredLocations, id: \.self) { location in
+                                        Button(action: { selectedLocation = location }) {
+                                            HStack {
+                                                Text(location)
+                                                    .font(.body)
+                                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                                Spacer()
+                                                Image(systemName: selectedLocation == location ? "checkmark.circle.fill" : "circle")
+                                                    .font(.system(size: 22))
+                                                    .foregroundColor(selectedLocation == location ? Color.activeBlue : (isDarkMode ? .white.opacity(0.4) : .secondary))
+                                            }
+                                            .padding(16)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 12)
+                                                    .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                            )
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 12)
+                                                    .stroke(selectedLocation == location ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: selectedLocation == location ? 2 : 1)
+                                            )
                                         }
-                                        .padding(.horizontal, 16)
-                                        .frame(height: 50)
-                                        .background(Color(.secondarySystemBackground))
-                                        .overlay(
-                                            Rectangle()
-                                                .stroke(selectedLocation == location ? Color.blue : Color.blue.opacity(0.3), lineWidth: selectedLocation == location ? 2 : 1)
-                                        )
+                                        .buttonStyle(.plain)
                                     }
                                 }
                             }
-                        }
-                        .frame(maxHeight: 300)
-                        
-                        HStack(spacing: 0) {
-                            Button(action: {
-                            }) {
-                                Text("फिर्ता जानुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.black)
+                            .frame(maxHeight: 280)
+
+                            HStack(spacing: 12) {
+                                Button(action: {}) {
+                                    Text("फिर्ता जानुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                        .cornerRadius(14)
+                                }
+                                Button(action: {}) {
+                                    Text("अगाडि बढ्नुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
+                                }
                             }
-                            
-                            Button(action: {
-                            }) {
-                                Text("अगाडि बढ्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
-                            }
                         }
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 32)
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("स्थान छान्नुहोस्")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("स्थान छान्नुहोस्")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    LocationSelectionView()
+    NavigationView { LocationSelectionView() }
 }

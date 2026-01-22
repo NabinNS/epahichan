@@ -43,106 +43,132 @@ struct ImagePicker: UIViewControllerRepresentable {
 struct SelfieCaptureView: View {
     @State private var selfieImage: UIImage?
     @State private var showCamera = false
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
+    
+    private var isDarkMode: Bool { colorScheme == .dark }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        
-                        Text("कागजात संग आफ्नो अनुहार आउने गरी फोटो खिच्नुहोस्")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
                         VStack(spacing: 16) {
-                            if let selfieImage = selfieImage {
-                                Image(uiImage: selfieImage)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxHeight: 300)
-                                    .background(Color(.secondarySystemBackground))
-                                    .overlay(
-                                        Rectangle()
-                                            .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                    )
-                            } else {
-                                VStack(spacing: 12) {
-                                    Image(systemName: "camera.fill")
-                                        .font(.system(size: 60))
-                                        .foregroundColor(.blue)
-                                    
-                                    Text("सेल्फी खिच्नुहोस्")
-                                        .font(.headline)
-                                        .foregroundColor(.secondary)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 200)
-                                .background(Color(.secondarySystemBackground))
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                )
+                            StepIndicatorView(current: 4, total: 4)
+                                .padding(.horizontal, 24)
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "camera.fill")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
                             }
-                            
-                            Button(action: {
-                                showCamera = true
-                            }) {
-                                HStack {
-                                    Image(systemName: "camera.fill")
-                                    Text(selfieImage == nil ? "फोटो खिच्नुहोस्" : "फोटो पुन खिच्नुहोस्")
-                                        .font(.headline)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 60)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
+                            VStack(spacing: 8) {
+                                Text("सेल्फी फोटो")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("कागजात संग आफ्नो अनुहार आउने गरी फोटो खिच्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
                             }
                         }
+                        .padding(.top, 24)
                         
-                        HStack(spacing: 0) {
-                            Button(action: {
-                            }) {
-                                Text("फिर्ता जानुहोस्")
-                                    .font(.headline)
+                        VStack(alignment: .leading, spacing: 20) {
+                            VStack(alignment: .leading, spacing: 12) {
+                                if let selfieImage = selfieImage {
+                                    Image(uiImage: selfieImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height: 300)
+                                        .clipped()
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                } else {
+                                    VStack(spacing: 16) {
+                                        Image(systemName: "camera.fill")
+                                            .font(.system(size: 50))
+                                            .foregroundColor(isDarkMode ? .white.opacity(0.5) : .secondary)
+                                        
+                                        Text("सेल्फी खिच्नुहोस्")
+                                            .font(.body)
+                                            .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                    }
                                     .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
+                                    .frame(height: 250)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+                                    )
+                                }
+                                
+                                Button(action: { showCamera = true }) {
+                                    HStack(spacing: 12) {
+                                        Image(systemName: "camera.fill")
+                                            .font(.system(size: 18))
+                                        Text(selfieImage == nil ? "फोटो खिच्नुहोस्" : "फोटो पुन खिच्नुहोस्")
+                                            .font(.body)
+                                    }
                                     .foregroundColor(.white)
-                                    .background(Color.black)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(Color.activeBlue)
+                                    .cornerRadius(14)
+                                }
                             }
                             
-                            Button(action: {
-                            }) {
-                                Text("अगाडि बढ्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
+                            HStack(spacing: 12) {
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
                                     .foregroundColor(.white)
-                                    .background(Color.blue)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
+                                }
+                                .buttonStyle(.plain)
+                                
+                                Button(action: {}) {
+                                    Text("अगाडि बढ्नुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
+                                }
                             }
                         }
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 32)
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("सेल्फी")
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showCamera) {
-                ImagePicker(image: $selfieImage)
-            }
+        }
+        .navigationTitle("सेल्फी")
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showCamera) {
+            ImagePicker(image: $selfieImage)
         }
     }
 }
 
 #Preview {
-    SelfieCaptureView()
+    NavigationView { SelfieCaptureView() }
 }

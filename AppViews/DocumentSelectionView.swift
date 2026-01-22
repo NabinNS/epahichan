@@ -2,6 +2,10 @@ import SwiftUI
 
 struct DocumentSelectionView: View {
     @State private var selectedDocuments: Set<String> = []
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
+    
+    private var isDarkMode: Bool { colorScheme == .dark }
     
     let documents = [
         "नागरिकता राष्ट्रिय परिचयपत्र",
@@ -11,86 +15,115 @@ struct DocumentSelectionView: View {
     ]
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            StepIndicatorView(current: 2, total: 4)
+                                .padding(.horizontal, 24)
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+                                Image(systemName: "doc.text.fill")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
+                            }
+                            VStack(spacing: 8) {
+                                Text("कागज छान्नुहोस्")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                                Text("प्रमाणीकरण को लागि प्रस्तुत गर्ने कागज छान्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
+                            }
+                        }
+                        .padding(.top, 24)
                         
-                        Text("प्रमाणीकरण को लागि प्रस्तुत गर्ने कागज छान्नुहोस्")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
-                        VStack(spacing: 12) {
-                            ForEach(documents, id: \.self) { document in
-                                Button(action: {
-                                    if selectedDocuments.contains(document) {
-                                        selectedDocuments.remove(document)
-                                    } else {
-                                        selectedDocuments.insert(document)
+                        VStack(alignment: .leading, spacing: 20) {
+                            VStack(spacing: 12) {
+                                ForEach(documents, id: \.self) { document in
+                                    Button(action: {
+                                        if selectedDocuments.contains(document) {
+                                            selectedDocuments.remove(document)
+                                        } else {
+                                            selectedDocuments.insert(document)
+                                        }
+                                    }) {
+                                        HStack(spacing: 16) {
+                                            Image(systemName: selectedDocuments.contains(document) ? "checkmark.square.fill" : "square")
+                                                .font(.system(size: 22))
+                                                .foregroundColor(selectedDocuments.contains(document) ? Color.activeBlue : (isDarkMode ? .white.opacity(0.4) : .secondary))
+                                            
+                                            Text(document)
+                                                .font(.body)
+                                                .foregroundColor(isDarkMode ? .white : .primary)
+                                            
+                                            Spacer()
+                                        }
+                                        .padding(16)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(selectedDocuments.contains(document) ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: selectedDocuments.contains(document) ? 2 : 1)
+                                        )
                                     }
-                                }) {
-                                    HStack {
-                                        Text(document)
-                                            .font(.body)
-                                            .foregroundColor(.primary)
-                                        
-                                        Spacer()
-                                        
-                                        Image(systemName: selectedDocuments.contains(document) ? "checkmark.square.fill" : "square")
-                                            .foregroundColor(selectedDocuments.contains(document) ? .blue : .gray)
-                                    }
-                                    .padding(.horizontal, 16)
-                                    .frame(height: 50)
-                                    .background(Color(.secondarySystemBackground))
-                                    .overlay(
-                                        Rectangle()
-                                            .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                    )
+                                    .buttonStyle(.plain)
                                 }
                             }
-                        }
-                        
-                        HStack(spacing: 0) {
-                            Button(action: {
-                            }) {
-                                Text("फिर्ता जानुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.black)
-                            }
                             
-                            Button(action: {
-                            }) {
-                                Text("अगाडि बढ्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
+                            HStack(spacing: 12) {
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
                                     .foregroundColor(.white)
-                                    .background(Color.blue)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
+                                }
+                                .buttonStyle(.plain)
+                                
+                                NavigationLink(destination: DocumentUploadView(documentType: selectedDocuments.first ?? documents[0])) {
+                                    Text("अगाडि बढ्नुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
+                                }
+                                .buttonStyle(.plain)
+                                .disabled(selectedDocuments.isEmpty)
+                                .opacity(selectedDocuments.isEmpty ? 0.6 : 1.0)
                             }
                         }
+                        .padding(.horizontal, 24)
+                        Spacer().frame(height: 40)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 32)
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("कागज छान्नुहोस्")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("कागज छान्नुहोस्")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    DocumentSelectionView()
+    NavigationView { DocumentSelectionView() }
 }

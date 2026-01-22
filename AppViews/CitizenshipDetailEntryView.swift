@@ -5,7 +5,17 @@ struct CitizenshipDetailEntryView: View {
     @State private var jariMiti: String = ""
     @State private var selectedDistrict: String = ""
     @State private var showDistrictPicker = false
-    
+    @State private var showDatePicker = false
+    @State private var selectedDate = Date()
+    @Environment(\.colorScheme) private var colorScheme
+    @FocusState private var focusedField: Field?
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
+    enum Field {
+        case citizenshipNumber, jariMiti
+    }
+
     let districts = [
         "काठमाडौं",
         "ललितपुर",
@@ -28,119 +38,166 @@ struct CitizenshipDetailEntryView: View {
         "मनाङ",
         "मुस्ताङ"
     ]
-    
+
+    private var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        return formatter
+    }
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        
-                        Text("नागरिकता प्रविष्टि")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("नागरिकता नम्बर")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                            
-                            TextField("", text: $citizenshipNumber)
-                                .keyboardType(.numberPad)
-                                .font(.title3)
-                                .padding(.horizontal, 16)
-                                .frame(height: 50)
-                                .background(Color(.secondarySystemBackground))
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                )
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 0) {
+                    Spacer().frame(height: 40)
+
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.activeBlue.opacity(0.15))
+                                    .frame(width: 80, height: 80)
+
+                                Image(systemName: "doc.text.fill")
+                                    .font(.system(size: 36, weight: .semibold))
+                                    .foregroundColor(Color.activeBlue)
+                            }
+
+                            VStack(spacing: 8) {
+                                Text("नागरिकता विवरण भर्नुहोस्")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+
+                                Text("कृपया आफ्नो नागरिकता विवरण सुरक्षित तरिकाले भर्नुहोस्")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 8)
+                            }
                         }
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("जारी मिति")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                            
-                            TextField("YYYY/MM/DD", text: $jariMiti)
-                                .keyboardType(.numbersAndPunctuation)
-                                .font(.title3)
-                                .padding(.horizontal, 16)
-                                .frame(height: 50)
-                                .background(Color(.secondarySystemBackground))
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                )
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("जिल्ला")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                            
-                            Button(action: {
-                                showDistrictPicker = true
-                            }) {
-                                HStack {
-                                    Text(selectedDistrict.isEmpty ? "जिल्ला छान्नुहोस्" : selectedDistrict)
-                                        .font(.title3)
-                                        .foregroundColor(selectedDistrict.isEmpty ? .secondary : .primary)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "chevron.down")
-                                        .foregroundColor(.secondary)
+                        .padding(.top, 24)
+
+                        VStack(alignment: .leading, spacing: 20) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("नागरिकता नम्बर")
+                                    .font(.subheadline)
+                                    .foregroundColor(focusedField == .citizenshipNumber ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+
+                                TextField("", text: $citizenshipNumber)
+                                    .font(.body)
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .keyboardType(.numberPad)
+                                    .padding(16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(focusedField == .citizenshipNumber ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .citizenshipNumber ? 2 : 1)
+                                    )
+                                    .focused($focusedField, equals: .citizenshipNumber)
+                            }
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("जारी मिति")
+                                    .font(.subheadline)
+                                    .foregroundColor(showDatePicker ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+
+                                Button(action: { showDatePicker = true }) {
+                                    HStack {
+                                        Text(jariMiti.isEmpty ? "YYYY/MM/DD" : jariMiti)
+                                            .font(.body)
+                                            .foregroundColor(jariMiti.isEmpty ? (isDarkMode ? .white.opacity(0.5) : .secondary) : (isDarkMode ? .white : .primary))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                                        Image(systemName: "calendar")
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                    }
+                                    .padding(16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(showDatePicker ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: showDatePicker ? 2 : 1)
+                                    )
                                 }
-                                .padding(.horizontal, 16)
-                                .frame(height: 50)
-                                .background(Color(.secondarySystemBackground))
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                                )
+                                .buttonStyle(.plain)
+                            }
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("जिल्ला")
+                                    .font(.subheadline)
+                                    .foregroundColor(showDistrictPicker ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+
+                                Button(action: { showDistrictPicker = true }) {
+                                    HStack {
+                                        Text(selectedDistrict.isEmpty ? "जिल्ला छान्नुहोस्" : selectedDistrict)
+                                            .font(.body)
+                                            .foregroundColor(selectedDistrict.isEmpty ? (isDarkMode ? .white.opacity(0.5) : .secondary) : (isDarkMode ? .white : .primary))
+
+                                        Spacer()
+
+                                        Image(systemName: "chevron.down")
+                                            .font(.system(size: 14, weight: .semibold))
+                                            .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                    }
+                                    .padding(16)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(showDistrictPicker ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: showDistrictPicker ? 2 : 1)
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                            }
+
+                            HStack(spacing: 12) {
+                                Button(action: {}) {
+                                    Text("पछाडि जानुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                        .cornerRadius(14)
+                                }
+
+                                Button(action: {}) {
+                                    Text("पेश गर्नुहोस्")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
+                                }
                             }
                         }
-                        
-                        HStack(spacing: 0) {
-                            Button(action: {
-                            }) {
-                                Text("पछाडि जानुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.black)
-                            }
-                            
-                            Button(action: {
-                            }) {
-                                Text("पेश गर्नुहोस्")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
-                            }
-                        }
+                        .padding(.horizontal, 24)
+
+                        Spacer().frame(height: 40)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 32)
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("नागरिकता")
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showDistrictPicker) {
-                DistrictPickerView(selectedDistrict: $selectedDistrict, districts: districts)
-            }
+        }
+        .navigationTitle("नागरिकता")
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showDistrictPicker) {
+            DistrictPickerView(selectedDistrict: $selectedDistrict, districts: districts)
+        }
+        .sheet(isPresented: $showDatePicker) {
+            NepaliDatePickerView(selectedDate: $selectedDate, jariMiti: $jariMiti, dateFormatter: dateFormatter)
         }
     }
 }
@@ -148,26 +205,84 @@ struct CitizenshipDetailEntryView: View {
 struct DistrictPickerView: View {
     @Binding var selectedDistrict: String
     let districts: [String]
+    @State private var searchText: String = ""
     @Environment(\.dismiss) var dismiss
-    
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
+    var filteredDistricts: [String] {
+        if searchText.isEmpty {
+            return districts
+        } else {
+            return districts.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+
     var body: some View {
         NavigationView {
-            List {
-                ForEach(districts, id: \.self) { district in
-                    Button(action: {
-                        selectedDistrict = district
-                        dismiss()
-                    }) {
+            ZStack {
+                FormBackgroundGradient()
+                    .ignoresSafeArea()
+
+                VStack(spacing: 0) {
+                    VStack(spacing: 16) {
                         HStack {
-                            Text(district)
-                                .foregroundColor(.primary)
-                            
-                            Spacer()
-                            
-                            if selectedDistrict == district {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                .padding(.leading, 16)
+
+                            TextField("जिल्ला खोज्नुहोस्", text: $searchText)
+                                .font(.body)
+                                .foregroundColor(isDarkMode ? .white : .primary)
+                                .padding(.vertical, 12)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+                        )
+                        .padding(.horizontal, 24)
+                        .padding(.top, 16)
+
+                        ScrollView {
+                            VStack(spacing: 12) {
+                                ForEach(filteredDistricts, id: \.self) { district in
+                                    Button(action: {
+                                        selectedDistrict = district
+                                        dismiss()
+                                    }) {
+                                        HStack {
+                                            Text(district)
+                                                .font(.body)
+                                                .foregroundColor(isDarkMode ? .white : .primary)
+
+                                            Spacer()
+
+                                            if selectedDistrict == district {
+                                                Image(systemName: "checkmark")
+                                                    .font(.system(size: 16, weight: .semibold))
+                                                    .foregroundColor(Color.activeBlue)
+                                            }
+                                        }
+                                        .padding(16)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(selectedDistrict == district ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: selectedDistrict == district ? 2 : 1)
+                                        )
+                                    }
+                                    .buttonStyle(.plain)
+                                    .padding(.horizontal, 24)
+                                }
                             }
+                            .padding(.vertical, 8)
                         }
                     }
                 }
@@ -179,6 +294,157 @@ struct DistrictPickerView: View {
                     Button("रद्द") {
                         dismiss()
                     }
+                    .foregroundColor(Color.activeBlue)
+                }
+            }
+        }
+    }
+}
+
+struct NepaliDatePickerView: View {
+    @Binding var selectedDate: Date
+    @Binding var jariMiti: String
+    let dateFormatter: DateFormatter
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
+    // Nepali months
+    let nepaliMonths = [
+        "बैशाख", "जेठ", "असार", "श्रावण", "भाद्र", "आश्विन",
+        "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुन", "चैत्र"
+    ]
+
+    // Nepali years (2080-2090 BS)
+    let nepaliYears = Array(2080...2090).map { "\($0)" }
+
+    @State private var selectedYear: String = "2080"
+    @State private var selectedMonth: String = "बैशाख"
+    @State private var selectedDay: String = "1"
+
+    // Days in each Nepali month (simplified - in real app, use proper Nepali calendar)
+    private var daysInMonth: [Int] {
+        // Simplified: assuming 30 days for all months
+        Array(1...30).map { $0 }
+    }
+
+    var body: some View {
+        NavigationView {
+            ZStack {
+                FormBackgroundGradient()
+                    .ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 24) {
+                        VStack(spacing: 16) {
+                            Text("वर्ष")
+                                .font(.subheadline)
+                                .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 12) {
+                                    ForEach(nepaliYears, id: \.self) { year in
+                                        Button(action: { selectedYear = year }) {
+                                            Text(year)
+                                                .font(.body)
+                                                .fontWeight(selectedYear == year ? .semibold : .regular)
+                                                .foregroundColor(selectedYear == year ? .white : (isDarkMode ? .white.opacity(0.8) : .primary))
+                                                .padding(.horizontal, 20)
+                                                .padding(.vertical, 12)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 12)
+                                                        .fill(selectedYear == year ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
+                                                )
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal, 24)
+                            }
+                        }
+
+                        VStack(spacing: 16) {
+                            Text("महिना")
+                                .font(.subheadline)
+                                .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 12) {
+                                    ForEach(nepaliMonths, id: \.self) { month in
+                                        Button(action: { selectedMonth = month }) {
+                                            Text(month)
+                                                .font(.body)
+                                                .fontWeight(selectedMonth == month ? .semibold : .regular)
+                                                .foregroundColor(selectedMonth == month ? .white : (isDarkMode ? .white.opacity(0.8) : .primary))
+                                                .padding(.horizontal, 20)
+                                                .padding(.vertical, 12)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 12)
+                                                        .fill(selectedMonth == month ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
+                                                )
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal, 24)
+                            }
+                        }
+
+                        VStack(spacing: 16) {
+                            Text("दिन")
+                                .font(.subheadline)
+                                .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 5), spacing: 8) {
+                                ForEach(daysInMonth, id: \.self) { day in
+                                    Button(action: { selectedDay = "\(day)" }) {
+                                        Text("\(day)")
+                                            .font(.body)
+                                            .fontWeight(selectedDay == "\(day)" ? .semibold : .regular)
+                                            .foregroundColor(selectedDay == "\(day)" ? .white : (isDarkMode ? .white.opacity(0.8) : .primary))
+                                            .frame(width: 50, height: 50)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 12)
+                                                    .fill(selectedDay == "\(day)" ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
+                                            )
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 24)
+                        }
+
+                        Button(action: {
+                            // Convert Nepali date to format (simplified - in real app, convert properly)
+                            let monthIndex = nepaliMonths.firstIndex(of: selectedMonth) ?? 0
+                            let monthNumber = String(format: "%02d", monthIndex + 1)
+                            let dayNumber = String(format: "%02d", Int(selectedDay) ?? 1)
+                            jariMiti = "\(selectedYear)/\(monthNumber)/\(dayNumber)"
+                            dismiss()
+                        }) {
+                            Text("छान्नुहोस्")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 56)
+                                .background(Color.activeBlue)
+                                .cornerRadius(14)
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.top, 8)
+                    }
+                    .padding(.vertical, 24)
+                }
+            }
+            .navigationTitle("मिति छान्नुहोस्")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("रद्द") {
+                        dismiss()
+                    }
+                    .foregroundColor(Color.activeBlue)
                 }
             }
         }
@@ -186,5 +452,7 @@ struct DistrictPickerView: View {
 }
 
 #Preview {
-    CitizenshipDetailEntryView()
+    NavigationView {
+        CitizenshipDetailEntryView()
+    }
 }
