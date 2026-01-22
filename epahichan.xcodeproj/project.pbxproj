@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		393BC9812F22346900B82BBF /* FormBackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */; };
 		396E0F7D2F1F85B1009F2050 /* epahichanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F7C2F1F85B1009F2050 /* epahichanApp.swift */; };
 		396E0F7F2F1F85B1009F2050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F7E2F1F85B1009F2050 /* ContentView.swift */; };
 		396E0F812F1F85B3009F2050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 396E0F802F1F85B3009F2050 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormBackgroundGradient.swift; sourceTree = "<group>"; };
 		396E0F792F1F85B1009F2050 /* epahichan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = epahichan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		396E0F7C2F1F85B1009F2050 /* epahichanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = epahichanApp.swift; sourceTree = "<group>"; };
 		396E0F7E2F1F85B1009F2050 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 		397C64A62F1F966700BA09AE /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
+				393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */,
 				397219B72F21504F00145C81 /* MyDocumentsView.swift */,
 				397219B62F21504F00145C81 /* NotificationView.swift */,
 				397219B52F21504F00145C81 /* VerificationStatusView.swift */,
@@ -338,6 +341,7 @@
 				397219B82F21504F00145C81 /* VerificationStatusView.swift in Sources */,
 				397F047D2F1FF105006031FF /* SelfieCaptureView.swift in Sources */,
 				397F04742F1FE2B7006031FF /* PasswordSetupView.swift in Sources */,
+				393BC9812F22346900B82BBF /* FormBackgroundGradient.swift in Sources */,
 				397FA63F2F20DF5F001481AF /* CitizenshipDetailEntryView.swift in Sources */,
 				397F04722F1FE2B7006031FF /* EmailOTPView.swift in Sources */,
 				397219BA2F21504F00145C81 /* MyDocumentsView.swift in Sources */,

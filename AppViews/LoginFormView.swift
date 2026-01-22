@@ -1,88 +1,170 @@
-//
-//  LoginFormView.swift
-//  epahichan
-//
-//  Created by Nabin Shrestha on 1/20/26.
-//
-
 import SwiftUI
 
+// MARK: - Color Extensions
+extension Color {
+    static let accentViolet = Color(red: 208/255, green: 188/255, blue: 255/255)
+    static let activeBlue = Color(red: 0/255, green: 59/255, blue: 149/255) // #003b95
+}
+
+// MARK: - LoginFormView
 struct LoginFormView: View {
     @State private var emailOrPhone: String = ""
     @State private var password: String = ""
-    @State private var showSignUp = false
-    @Environment(\.dismiss) var dismiss
-    
+    @State private var showPassword: Bool = false
+    @Environment(\.colorScheme) private var colorScheme
+    @FocusState private var focusedField: Field?
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
+    enum Field {
+        case email, password
+    }
+
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.systemGroupedBackground)
+                FormBackgroundGradient()
                     .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 24) {
-                        
-                        Text("लगइन गर्नुहोस्")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        
-                        TextField("इमेल वा फोन नम्बर", text: $emailOrPhone)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                            .font(.title3)
-                            .padding(.horizontal, 16)
-                            .frame(height: 50)
-                            .background(Color(.secondarySystemBackground))
-                            .overlay(
-                                Rectangle()
-                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                            )
-                        
-                        SecureField("पासवर्ड", text: $password)
-                            .font(.title3)
-                            .padding(.horizontal, 16)
-                            .frame(height: 50)
-                            .background(Color(.secondarySystemBackground))
-                            .overlay(
-                                Rectangle()
-                                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                            )
-                        
-                        Button(action: {
-                        }) {
-                            Text("लगइन")
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
+
+                ScrollView {
+                    VStack(spacing: 0) {
+                        Spacer().frame(height: 40)
+
+                        VStack(spacing: 32) {
+                            // MARK: Logo & Welcome
+                            VStack(spacing: 20) {
+                                Image("SplashLogo")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 120, height: 120)
+                                    .shadow(color: Color.accentViolet.opacity(0.3), radius: 20, x: 0, y: 10)
+
+                                Text("Epahichan मा स्वागत छ")
+                                    .font(.system(size: 28, weight: .bold))
+                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .multilineTextAlignment(.center)
+                            }
+                            .padding(.top, 24)
+
+                            // MARK: Input Fields
+                            VStack(alignment: .leading, spacing: 20) {
+                                // Email / Phone
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("इमेल वा फोन नम्बर")
+                                        .font(.subheadline)
+                                        .foregroundColor(focusedField == .email ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+
+                                    TextField("", text: $emailOrPhone)
+                                        .font(.body)
+                                        .foregroundColor(isDarkMode ? .white : .primary)
+                                        .keyboardType(.emailAddress)
+                                        .autocapitalization(.none)
+                                        .padding(16)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(focusedField == .email ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .email ? 2 : 1)
+                                        )
+                                        .focused($focusedField, equals: .email)
+                                }
+
+                                // Password
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("पासवर्ड")
+                                        .font(.subheadline)
+                                        .foregroundColor(focusedField == .password ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+
+                                    HStack(spacing: 0) {
+                                        Group {
+                                            if showPassword {
+                                                TextField("", text: $password)
+                                                    .font(.body)
+                                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                            } else {
+                                                SecureField("", text: $password)
+                                                    .font(.body)
+                                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                            }
+                                        }
+                                        .autocapitalization(.none)
+                                        .padding(16)
+                                        .padding(.trailing, 8)
+                                        .focused($focusedField, equals: .password)
+
+                                        Spacer(minLength: 0)
+
+                                        // Show/Hide password button
+                                        Button(action: { withAnimation { showPassword.toggle() } }) {
+                                            Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
+                                                .font(.system(size: 16))
+                                                .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                        }
+                                        .frame(width: 44, height: 44)
+                                    }
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(focusedField == .password ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .password ? 2 : 1)
+                                    )
+                                }
+
+                                // Forgot Password
+                                HStack {
+                                    Spacer()
+                                    Button(action: {}) {
+                                        Text("पासवर्ड बिर्सनुभयो?")
+                                            .font(.subheadline)
+                                            .foregroundColor(Color.activeBlue)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 24)
+
+                            // MARK: Buttons
+                            VStack(spacing: 16) {
+                                // Login Button
+                                Button(action: {}) {
+                                    Text("लगइन")
+                                        .font(.system(size: 18, weight: .semibold))
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 56)
+                                        .background(Color.activeBlue)
+                                        .cornerRadius(14)
+                                }
+
+                                // Sign Up Link
+                                HStack(spacing: 4) {
+                                    Text("खाता छैन?")
+                                        .font(.body)
+                                        .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+
+                                    NavigationLink(destination: SignUpFormView()) {
+                                        Text("साइन अप गर्नुहोस्")
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(Color.activeBlue)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 24)
+
+                            Spacer().frame(height: 40)
                         }
-                        
-                        Button(action: {
-                            showSignUp = true
-                        }) {
-                            Text("साइन अप")
-                                .font(.footnote)
-                                .foregroundColor(.blue)
-                        }
-                        .frame(maxWidth: .infinity)
                     }
-                    .padding(24)
-                    .background(Color.white)
-                    .padding(.horizontal, 24)
-                    
-                    Spacer()
                 }
             }
-            .navigationTitle("लगइन")
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showSignUp) {
-                SignUpFormView()
-            }
+            .navigationTitle("")
+            .navigationBarHidden(true)
         }
     }
+
 }
 
 #Preview {
