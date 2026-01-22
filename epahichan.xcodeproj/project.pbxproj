@@ -14,6 +14,27 @@
 		396E0F8E2F1F85B4009F2050 /* epahichanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F8D2F1F85B4009F2050 /* epahichanTests.swift */; };
 		396E0F982F1F85B4009F2050 /* epahichanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F972F1F85B4009F2050 /* epahichanUITests.swift */; };
 		396E0F9A2F1F85B4009F2050 /* epahichanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F992F1F85B4009F2050 /* epahichanUITestsLaunchTests.swift */; };
+		397219B82F21504F00145C81 /* VerificationStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397219B52F21504F00145C81 /* VerificationStatusView.swift */; };
+		397219B92F21504F00145C81 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397219B62F21504F00145C81 /* NotificationView.swift */; };
+		397219BA2F21504F00145C81 /* MyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397219B72F21504F00145C81 /* MyDocumentsView.swift */; };
+		397C64A82F1F988500BA09AE /* LoginFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397C64A72F1F988500BA09AE /* LoginFormView.swift */; };
+		397C64AA2F1F9A7D00BA09AE /* SignUpFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397C64A92F1F9A7D00BA09AE /* SignUpFormView.swift */; };
+		397F04722F1FE2B7006031FF /* EmailOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F046E2F1FE2B7006031FF /* EmailOTPView.swift */; };
+		397F04732F1FE2B7006031FF /* EmailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F046F2F1FE2B7006031FF /* EmailEntryView.swift */; };
+		397F04742F1FE2B7006031FF /* PasswordSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04702F1FE2B7006031FF /* PasswordSetupView.swift */; };
+		397F04752F1FE2B7006031FF /* MobileOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04712F1FE2B7006031FF /* MobileOTPView.swift */; };
+		397F04772F1FEA12006031FF /* NameEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04762F1FEA12006031FF /* NameEntryView.swift */; };
+		397F047A2F1FEF56006031FF /* DocumentSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04782F1FEF56006031FF /* DocumentSelectionView.swift */; };
+		397F047B2F1FEF56006031FF /* DocumentUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04792F1FEF56006031FF /* DocumentUploadView.swift */; };
+		397F047D2F1FF105006031FF /* SelfieCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F047C2F1FF105006031FF /* SelfieCaptureView.swift */; };
+		397F047F2F1FF3DB006031FF /* LocationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F047E2F1FF3DB006031FF /* LocationSelectionView.swift */; };
+		397F04812F1FFB81006031FF /* VerificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04802F1FFB81006031FF /* VerificationDetailView.swift */; };
+		397FA6352F209B04001481AF /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6342F209B04001481AF /* SplashScreenView.swift */; };
+		397FA6372F209C1A001481AF /* SplashLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 397FA6362F209C1A001481AF /* SplashLogo.png */; };
+		397FA63C2F20DF5F001481AF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6382F20DF5E001481AF /* DashboardView.swift */; };
+		397FA63D2F20DF5F001481AF /* AdditionalLocationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */; };
+		397FA63E2F20DF5F001481AF /* PersonalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */; };
+		397FA63F2F20DF5F001481AF /* CitizenshipDetailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA63B2F20DF5F001481AF /* CitizenshipDetailEntryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +65,27 @@
 		396E0F932F1F85B4009F2050 /* epahichanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = epahichanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		396E0F972F1F85B4009F2050 /* epahichanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = epahichanUITests.swift; sourceTree = "<group>"; };
 		396E0F992F1F85B4009F2050 /* epahichanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = epahichanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		397219B52F21504F00145C81 /* VerificationStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationStatusView.swift; sourceTree = "<group>"; };
+		397219B62F21504F00145C81 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		397219B72F21504F00145C81 /* MyDocumentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDocumentsView.swift; sourceTree = "<group>"; };
+		397C64A72F1F988500BA09AE /* LoginFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFormView.swift; sourceTree = "<group>"; };
+		397C64A92F1F9A7D00BA09AE /* SignUpFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormView.swift; sourceTree = "<group>"; };
+		397F046E2F1FE2B7006031FF /* EmailOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailOTPView.swift; sourceTree = "<group>"; };
+		397F046F2F1FE2B7006031FF /* EmailEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailEntryView.swift; sourceTree = "<group>"; };
+		397F04702F1FE2B7006031FF /* PasswordSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordSetupView.swift; sourceTree = "<group>"; };
+		397F04712F1FE2B7006031FF /* MobileOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileOTPView.swift; sourceTree = "<group>"; };
+		397F04762F1FEA12006031FF /* NameEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameEntryView.swift; sourceTree = "<group>"; };
+		397F04782F1FEF56006031FF /* DocumentSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSelectionView.swift; sourceTree = "<group>"; };
+		397F04792F1FEF56006031FF /* DocumentUploadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentUploadView.swift; sourceTree = "<group>"; };
+		397F047C2F1FF105006031FF /* SelfieCaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieCaptureView.swift; sourceTree = "<group>"; };
+		397F047E2F1FF3DB006031FF /* LocationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSelectionView.swift; sourceTree = "<group>"; };
+		397F04802F1FFB81006031FF /* VerificationDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationDetailView.swift; sourceTree = "<group>"; };
+		397FA6342F209B04001481AF /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		397FA6362F209C1A001481AF /* SplashLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SplashLogo.png; path = ../../../Downloads/SplashLogo.png; sourceTree = "<group>"; };
+		397FA6382F20DF5E001481AF /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalLocationSelectionView.swift; sourceTree = "<group>"; };
+		397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDetailView.swift; sourceTree = "<group>"; };
+		397FA63B2F20DF5F001481AF /* CitizenshipDetailEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitizenshipDetailEntryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				396E0F7B2F1F85B1009F2050 /* epahichan */,
+				397C64A62F1F966700BA09AE /* AppViews */,
 				396E0F8C2F1F85B4009F2050 /* epahichanTests */,
 				396E0F962F1F85B4009F2050 /* epahichanUITests */,
 				396E0F7A2F1F85B1009F2050 /* Products */,
@@ -94,6 +137,7 @@
 		396E0F7B2F1F85B1009F2050 /* epahichan */ = {
 			isa = PBXGroup;
 			children = (
+				397FA6362F209C1A001481AF /* SplashLogo.png */,
 				396E0F7C2F1F85B1009F2050 /* epahichanApp.swift */,
 				396E0F7E2F1F85B1009F2050 /* ContentView.swift */,
 				396E0F802F1F85B3009F2050 /* Assets.xcassets */,
@@ -125,6 +169,33 @@
 				396E0F992F1F85B4009F2050 /* epahichanUITestsLaunchTests.swift */,
 			);
 			path = epahichanUITests;
+			sourceTree = "<group>";
+		};
+		397C64A62F1F966700BA09AE /* AppViews */ = {
+			isa = PBXGroup;
+			children = (
+				397219B72F21504F00145C81 /* MyDocumentsView.swift */,
+				397219B62F21504F00145C81 /* NotificationView.swift */,
+				397219B52F21504F00145C81 /* VerificationStatusView.swift */,
+				397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */,
+				397FA63B2F20DF5F001481AF /* CitizenshipDetailEntryView.swift */,
+				397FA6382F20DF5E001481AF /* DashboardView.swift */,
+				397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */,
+				397FA6342F209B04001481AF /* SplashScreenView.swift */,
+				397F04802F1FFB81006031FF /* VerificationDetailView.swift */,
+				397F047E2F1FF3DB006031FF /* LocationSelectionView.swift */,
+				397F047C2F1FF105006031FF /* SelfieCaptureView.swift */,
+				397F04782F1FEF56006031FF /* DocumentSelectionView.swift */,
+				397F04792F1FEF56006031FF /* DocumentUploadView.swift */,
+				397F04762F1FEA12006031FF /* NameEntryView.swift */,
+				397F046F2F1FE2B7006031FF /* EmailEntryView.swift */,
+				397F046E2F1FE2B7006031FF /* EmailOTPView.swift */,
+				397F04712F1FE2B7006031FF /* MobileOTPView.swift */,
+				397F04702F1FE2B7006031FF /* PasswordSetupView.swift */,
+				397C64A92F1F9A7D00BA09AE /* SignUpFormView.swift */,
+				397C64A72F1F988500BA09AE /* LoginFormView.swift */,
+			);
+			path = AppViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				396E0F842F1F85B3009F2050 /* Preview Assets.xcassets in Resources */,
+				397FA6372F209C1A001481AF /* SplashLogo.png in Resources */,
 				396E0F812F1F85B3009F2050 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,8 +329,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				397C64AA2F1F9A7D00BA09AE /* SignUpFormView.swift in Sources */,
+				397FA63E2F20DF5F001481AF /* PersonalDetailView.swift in Sources */,
+				397219B92F21504F00145C81 /* NotificationView.swift in Sources */,
+				397FA63C2F20DF5F001481AF /* DashboardView.swift in Sources */,
+				397F047F2F1FF3DB006031FF /* LocationSelectionView.swift in Sources */,
+				397FA6352F209B04001481AF /* SplashScreenView.swift in Sources */,
+				397219B82F21504F00145C81 /* VerificationStatusView.swift in Sources */,
+				397F047D2F1FF105006031FF /* SelfieCaptureView.swift in Sources */,
+				397F04742F1FE2B7006031FF /* PasswordSetupView.swift in Sources */,
+				397FA63F2F20DF5F001481AF /* CitizenshipDetailEntryView.swift in Sources */,
+				397F04722F1FE2B7006031FF /* EmailOTPView.swift in Sources */,
+				397219BA2F21504F00145C81 /* MyDocumentsView.swift in Sources */,
+				397F04732F1FE2B7006031FF /* EmailEntryView.swift in Sources */,
+				397F04812F1FFB81006031FF /* VerificationDetailView.swift in Sources */,
 				396E0F7F2F1F85B1009F2050 /* ContentView.swift in Sources */,
+				397FA63D2F20DF5F001481AF /* AdditionalLocationSelectionView.swift in Sources */,
 				396E0F7D2F1F85B1009F2050 /* epahichanApp.swift in Sources */,
+				397F04752F1FE2B7006031FF /* MobileOTPView.swift in Sources */,
+				397F04772F1FEA12006031FF /* NameEntryView.swift in Sources */,
+				397F047A2F1FEF56006031FF /* DocumentSelectionView.swift in Sources */,
+				397F047B2F1FEF56006031FF /* DocumentUploadView.swift in Sources */,
+				397C64A82F1F988500BA09AE /* LoginFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
