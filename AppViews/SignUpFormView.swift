@@ -15,6 +15,10 @@ struct SignUpFormView: View {
         ZStack {
             FormBackgroundGradient()
                 .ignoresSafeArea()
+                .onTapGesture {
+                    // Dismiss keyboard when tapping background
+                    isPhoneFocused = false
+                }
 
             ScrollView {
                 VStack(spacing: 0) {
@@ -34,6 +38,9 @@ struct SignUpFormView: View {
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 24)
+                        .onTapGesture {
+                            isPhoneFocused = false
+                        }
 
                         VStack(alignment: .leading, spacing: 20) {
                             VStack(alignment: .leading, spacing: 10) {
@@ -109,6 +116,7 @@ struct SignUpFormView: View {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
         }
         .navigationTitle("साइन अप")
         .navigationBarTitleDisplayMode(.inline)
