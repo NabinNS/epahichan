@@ -18,6 +18,9 @@
 		397219B82F21504F00145C81 /* VerificationStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397219B52F21504F00145C81 /* VerificationStatusView.swift */; };
 		397219B92F21504F00145C81 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397219B62F21504F00145C81 /* NotificationView.swift */; };
 		397219BA2F21504F00145C81 /* MyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397219B72F21504F00145C81 /* MyDocumentsView.swift */; };
+		3976DFCF2F238EE600B3D510 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976DFCC2F238EE600B3D510 /* SettingsView.swift */; };
+		3976DFD02F238EE600B3D510 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976DFCD2F238EE600B3D510 /* ProfileView.swift */; };
+		3976DFD12F238EE600B3D510 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976DFCE2F238EE600B3D510 /* MainTabView.swift */; };
 		397C64A82F1F988500BA09AE /* LoginFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397C64A72F1F988500BA09AE /* LoginFormView.swift */; };
 		397C64AA2F1F9A7D00BA09AE /* SignUpFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397C64A92F1F9A7D00BA09AE /* SignUpFormView.swift */; };
 		397F04722F1FE2B7006031FF /* EmailOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F046E2F1FE2B7006031FF /* EmailOTPView.swift */; };
@@ -73,6 +76,9 @@
 		397219B52F21504F00145C81 /* VerificationStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationStatusView.swift; sourceTree = "<group>"; };
 		397219B62F21504F00145C81 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		397219B72F21504F00145C81 /* MyDocumentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDocumentsView.swift; sourceTree = "<group>"; };
+		3976DFCC2F238EE600B3D510 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3976DFCD2F238EE600B3D510 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		3976DFCE2F238EE600B3D510 /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		397C64A72F1F988500BA09AE /* LoginFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFormView.swift; sourceTree = "<group>"; };
 		397C64A92F1F9A7D00BA09AE /* SignUpFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormView.swift; sourceTree = "<group>"; };
 		397F046E2F1FE2B7006031FF /* EmailOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailOTPView.swift; sourceTree = "<group>"; };
@@ -182,6 +188,9 @@
 		397C64A62F1F966700BA09AE /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
+				3976DFCE2F238EE600B3D510 /* MainTabView.swift */,
+				3976DFCD2F238EE600B3D510 /* ProfileView.swift */,
+				3976DFCC2F238EE600B3D510 /* SettingsView.swift */,
 				3981A77F2F22A78A002AE789 /* FamilyDetailEntryView.swift */,
 				3981A77E2F22A78A002AE789 /* TemporaryAddressFormView.swift */,
 				393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */,
@@ -347,12 +356,14 @@
 				397FA63C2F20DF5F001481AF /* DashboardView.swift in Sources */,
 				397F047F2F1FF3DB006031FF /* LocationSelectionView.swift in Sources */,
 				397FA6352F209B04001481AF /* SplashScreenView.swift in Sources */,
+				3976DFD12F238EE600B3D510 /* MainTabView.swift in Sources */,
 				397219B82F21504F00145C81 /* VerificationStatusView.swift in Sources */,
 				397F047D2F1FF105006031FF /* SelfieCaptureView.swift in Sources */,
 				397F04742F1FE2B7006031FF /* PasswordSetupView.swift in Sources */,
 				3981A7802F22A78A002AE789 /* TemporaryAddressFormView.swift in Sources */,
 				397FA6442F20DF5F001481AF /* PermanentAddressFormView.swift in Sources */,
 				393BC9812F22346900B82BBF /* FormBackgroundGradient.swift in Sources */,
+				3976DFD02F238EE600B3D510 /* ProfileView.swift in Sources */,
 				3981A7812F22A78A002AE789 /* FamilyDetailEntryView.swift in Sources */,
 				397FA63F2F20DF5F001481AF /* CitizenshipDetailEntryView.swift in Sources */,
 				397F04722F1FE2B7006031FF /* EmailOTPView.swift in Sources */,
@@ -362,6 +373,7 @@
 				396E0F7F2F1F85B1009F2050 /* ContentView.swift in Sources */,
 				397FA63D2F20DF5F001481AF /* AdditionalLocationSelectionView.swift in Sources */,
 				396E0F7D2F1F85B1009F2050 /* epahichanApp.swift in Sources */,
+				3976DFCF2F238EE600B3D510 /* SettingsView.swift in Sources */,
 				397F04752F1FE2B7006031FF /* MobileOTPView.swift in Sources */,
 				397F04772F1FEA12006031FF /* NameEntryView.swift in Sources */,
 				397F047A2F1FEF56006031FF /* DocumentSelectionView.swift in Sources */,

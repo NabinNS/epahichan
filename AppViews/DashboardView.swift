@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @State private var showNotifications = false
+    @State private var selectedTab = 0
     @Environment(\.colorScheme) private var colorScheme
     
     private var isDarkMode: Bool { colorScheme == .dark }
@@ -25,11 +26,22 @@ struct DashboardView: View {
             FormBackgroundGradient()
                 .ignoresSafeArea()
             
-            ScrollView {
-                VStack(spacing: 0) {
-                    headerSection
-                    contentSection
+            VStack(spacing: 0) {
+                if selectedTab == 0 {
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            headerSection
+                            contentSection
+                        }
+                    }
+                } else if selectedTab == 1 {
+                    ProfileView()
+                } else if selectedTab == 2 {
+                    SettingsView()
                 }
+                
+                // Bottom Tab Bar
+                bottomTabBar
             }
         }
         .navigationTitle("")
@@ -85,64 +97,66 @@ struct DashboardView: View {
     private var contentSection: some View {
         VStack(spacing: 24) {
             statusCard
-            applicationStatusSection
             progressSection
             Spacer().frame(height: 40)
         }
     }
-
-    private var applicationStatusSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("तपाईंको अभियान हेरिँदै छ")
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(isDarkMode ? .white : .primary)
-            Text("थप विवरण वा प्रमाणीकरण ईस्थान थप्न चाहनुहुन्छ भने तलको बटनहरू प्रयोग गर्नुहोस्।")
-                .font(.subheadline)
-                .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
-                .fixedSize(horizontal: false, vertical: true)
-            HStack(spacing: 12) {
-                NavigationLink(destination: PermanentAddressEntryPage()) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "person.text.rectangle.fill")
-                            .font(.system(size: 16))
-                        Text("थप विवरण थप्नुहोस्")
-                            .font(.system(size: 15, weight: .semibold))
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 52)
-                    .background(Color.activeBlue)
-                    .cornerRadius(12)
+    
+    private var bottomTabBar: some View {
+        HStack(spacing: 0) {
+            // Home Tab
+            Button(action: { selectedTab = 0 }) {
+                VStack(spacing: 6) {
+                    Image(systemName: selectedTab == 0 ? "house.fill" : "house")
+                        .font(.system(size: 22))
+                    Text("होम")
+                        .font(.system(size: 12, weight: selectedTab == 0 ? .semibold : .regular))
                 }
-                .buttonStyle(.plain)
-                NavigationLink(destination: AdditionalLocationSelectionView()) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "mappin.circle.fill")
-                            .font(.system(size: 16))
-                        Text("थप ईस्थान रोज्नुहोस्")
-                            .font(.system(size: 15, weight: .semibold))
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 52)
-                    .background(isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray2))
-                    .cornerRadius(12)
+                .foregroundColor(selectedTab == 0 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
+            }
+            
+            // Profile Tab
+            Button(action: { selectedTab = 1 }) {
+                VStack(spacing: 6) {
+                    Image(systemName: selectedTab == 1 ? "person.fill" : "person")
+                        .font(.system(size: 22))
+                    Text("मेरो प्रोफाइल")
+                        .font(.system(size: 12, weight: selectedTab == 1 ? .semibold : .regular))
                 }
-                .buttonStyle(.plain)
+                .foregroundColor(selectedTab == 1 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
+            }
+            
+            // Settings Tab
+            Button(action: { selectedTab = 2 }) {
+                VStack(spacing: 6) {
+                    Image(systemName: selectedTab == 2 ? "gearshape.fill" : "gearshape")
+                        .font(.system(size: 22))
+                    Text("सेटिङ")
+                        .font(.system(size: 12, weight: selectedTab == 2 ? .semibold : .regular))
+                }
+                .foregroundColor(selectedTab == 2 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
             }
         }
-        .padding(20)
-        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+            Rectangle()
+                .fill(isDarkMode ? Color.black.opacity(0.3) : Color.white)
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: -5)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+            Rectangle()
+                .frame(height: 0.5)
+                .foregroundColor(isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+            alignment: .top
         )
-        .padding(.horizontal, 24)
     }
+
+ 
     
     private var statusCard: some View {
         VStack(spacing: 16) {
