@@ -121,7 +121,7 @@ struct PasswordSetupView: View {
                                 )
                             }
 
-                            Button(action: {}) {
+                            NavigationLink(destination: DashboardView()) {
                                 Text("सुरक्षित गर्नुहोस्")
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
@@ -130,6 +130,7 @@ struct PasswordSetupView: View {
                                     .background(Color.activeBlue)
                                     .cornerRadius(14)
                             }
+                            .buttonStyle(.plain)
                         }
                         .padding(.horizontal, 24)
 

@@ -134,7 +134,7 @@ struct VerificationDetailView: View {
                                     .cornerRadius(14)
                                 }
                                 .buttonStyle(.plain)
-                                Button(action: {}) {
+                                NavigationLink(destination: DashboardView()) {
                                     Text("प्रमाणीकरण को लागि पठाउनुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
@@ -143,6 +143,7 @@ struct VerificationDetailView: View {
                                         .background(Color.activeBlue)
                                         .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                             }
                         }
                         .padding(.horizontal, 24)

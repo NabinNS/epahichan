@@ -7,7 +7,7 @@ struct SplashScreenView: View {
     
     var body: some View {
         if isActive {
-            ContentView()
+            LoginFormView()
         } else {
             ZStack {
                 Color(.systemGroupedBackground)
@@ -21,7 +21,7 @@ struct SplashScreenView: View {
                         .scaleEffect(size)
                         .opacity(opacity)
                     
-                    Text("ई-पहिचान")
+                    Text("E-Pahichan")
                         .font(.system(size: 36, weight: .bold))
                         .foregroundColor(.primary)
                         .opacity(opacity)

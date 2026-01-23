@@ -6,6 +6,10 @@ struct SignUpFormView: View {
     @FocusState private var isPhoneFocused: Bool
 
     private var isDarkMode: Bool { colorScheme == .dark }
+    
+    private var isPhoneNumberEmpty: Bool {
+        phoneNumber.trimmingCharacters(in: .whitespaces).isEmpty
+    }
 
     var body: some View {
         ZStack {
@@ -24,7 +28,7 @@ struct SignUpFormView: View {
                                 .frame(width: 120, height: 120)
                                 .shadow(color: Color.accentViolet.opacity(0.3), radius: 20, x: 0, y: 10)
 
-                            Text("Epahichan मा स्वागत छ")
+                            Text("साइन अप गर्नुहोस्")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(isDarkMode ? .white : .primary)
                                 .multilineTextAlignment(.center)
@@ -32,23 +36,28 @@ struct SignUpFormView: View {
                         .padding(.top, 24)
 
                         VStack(alignment: .leading, spacing: 20) {
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("फोन नम्बर लेख्नुहोस्")
-                                    .font(.subheadline)
-                                    .foregroundColor(isPhoneFocused ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
 
                                 TextField("98XXXXXXXX", text: $phoneNumber)
-                                    .font(.body)
-                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white : Color(.label))
                                     .keyboardType(.phonePad)
                                     .padding(16)
                                     .background(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                            .fill(isPhoneFocused 
+                                                  ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                                  : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                     )
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .stroke(isPhoneFocused ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: isPhoneFocused ? 2 : 1)
+                                            .stroke(isPhoneFocused 
+                                                    ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                    : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), 
+                                                   lineWidth: isPhoneFocused ? 1.5 : 1)
                                     )
                                     .focused($isPhoneFocused)
                             }
@@ -75,7 +84,23 @@ struct SignUpFormView: View {
                                     .cornerRadius(14)
                             }
                             .buttonStyle(.plain)
-                       
+                            .disabled(isPhoneNumberEmpty)
+                            .opacity(isPhoneNumberEmpty ? 0.8 : 1.0)
+                            
+                            HStack(spacing: 4) {
+                                Spacer()
+                                Text("पहिले नै खाता छ?")
+                                    .font(.subheadline)
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                                NavigationLink(destination: LoginFormView()) {
+                                    Text("लगइन गर्नुहोस्")
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(Color.activeBlue)
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 8)
 
                         }
                         .padding(.horizontal, 24)

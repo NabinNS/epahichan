@@ -85,9 +85,63 @@ struct DashboardView: View {
     private var contentSection: some View {
         VStack(spacing: 24) {
             statusCard
+            applicationStatusSection
             progressSection
             Spacer().frame(height: 40)
         }
+    }
+
+    private var applicationStatusSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("तपाईंको अभियान हेरिँदै छ")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundColor(isDarkMode ? .white : .primary)
+            Text("थप विवरण वा प्रमाणीकरण ईस्थान थप्न चाहनुहुन्छ भने तलको बटनहरू प्रयोग गर्नुहोस्।")
+                .font(.subheadline)
+                .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack(spacing: 12) {
+                NavigationLink(destination: PermanentAddressEntryPage()) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "person.text.rectangle.fill")
+                            .font(.system(size: 16))
+                        Text("थप विवरण थप्नुहोस्")
+                            .font(.system(size: 15, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(Color.activeBlue)
+                    .cornerRadius(12)
+                }
+                .buttonStyle(.plain)
+                NavigationLink(destination: AdditionalLocationSelectionView()) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "mappin.circle.fill")
+                            .font(.system(size: 16))
+                        Text("थप ईस्थान रोज्नुहोस्")
+                            .font(.system(size: 15, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 52)
+                    .background(isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray2))
+                    .cornerRadius(12)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+        )
+        .padding(.horizontal, 24)
     }
     
     private var statusCard: some View {

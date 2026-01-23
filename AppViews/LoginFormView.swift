@@ -39,7 +39,7 @@ struct LoginFormView: View {
                                     .frame(width: 120, height: 120)
                                     .shadow(color: Color.accentViolet.opacity(0.3), radius: 20, x: 0, y: 10)
 
-                                Text("Epahichan मा स्वागत छ")
+                                Text("E-pahichan मा स्वागत छ")
                                     .font(.system(size: 28, weight: .bold))
                                     .foregroundColor(isDarkMode ? .white : .primary)
                                     .multilineTextAlignment(.center)
@@ -129,7 +129,7 @@ struct LoginFormView: View {
                             // MARK: Buttons
                             VStack(spacing: 16) {
                                 // Login Button
-                                Button(action: {}) {
+                                NavigationLink(destination: DashboardView()) {
                                     Text("लगइन")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
@@ -138,6 +138,7 @@ struct LoginFormView: View {
                                         .background(Color.activeBlue)
                                         .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
 
                                 // Sign Up Link
                                 HStack(spacing: 4) {

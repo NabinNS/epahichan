@@ -4,6 +4,7 @@ struct AdditionalLocationSelectionView: View {
     @State private var searchText: String = ""
     @State private var selectedLocations: [String] = []
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     @FocusState private var isSearchFocused: Bool
 
     private var isDarkMode: Bool { colorScheme == .dark }
@@ -180,15 +181,20 @@ struct AdditionalLocationSelectionView: View {
                                     }
                                     .frame(maxHeight: 180)
                                     HStack(spacing: 12) {
-                                        Button(action: {}) {
-                                            Text("पछाडि जानुहोस्")
-                                                .font(.system(size: 18, weight: .semibold))
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity)
-                                                .frame(height: 56)
-                                                .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
-                                                .cornerRadius(14)
+                                        Button(action: { dismiss() }) {
+                                            HStack(spacing: 8) {
+                                                Image(systemName: "chevron.left")
+                                                    .font(.system(size: 16, weight: .semibold))
+                                                Text("पछाडि जानुहोस्")
+                                                    .font(.system(size: 18, weight: .semibold))
+                                            }
+                                            .foregroundColor(.white)
+                                            .frame(maxWidth: .infinity)
+                                            .frame(height: 56)
+                                            .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                            .cornerRadius(14)
                                         }
+                                        .buttonStyle(.plain)
                                         Button(action: {}) {
                                             Text("पेश गर्नुहोस्")
                                                 .font(.system(size: 18, weight: .semibold))

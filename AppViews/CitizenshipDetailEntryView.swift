@@ -8,6 +8,7 @@ struct CitizenshipDetailEntryView: View {
     @State private var showDatePicker = false
     @State private var selectedDate = Date()
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: Field?
 
     private var isDarkMode: Bool { colorScheme == .dark }
@@ -163,18 +164,23 @@ struct CitizenshipDetailEntryView: View {
                             }
 
                             HStack(spacing: 12) {
-                                Button(action: {}) {
-                                    Text("पछाडि जानुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
-                                        .cornerRadius(14)
+                                Button(action: { dismiss() }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 16, weight: .semibold))
+                                        Text("पछाडि जानुहोस्")
+                                            .font(.system(size: 18, weight: .semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
 
-                                Button(action: {}) {
-                                    Text("पेश गर्नुहोस्")
+                                NavigationLink(destination: FamilyDetailEntryView()) {
+                                    Text("अगाडि बढ्नुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
@@ -182,6 +188,7 @@ struct CitizenshipDetailEntryView: View {
                                         .background(Color.activeBlue)
                                         .cornerRadius(14)
                                 }
+                                .buttonStyle(.plain)
                             }
                         }
                         .padding(.horizontal, 24)
@@ -198,6 +205,96 @@ struct CitizenshipDetailEntryView: View {
         }
         .sheet(isPresented: $showDatePicker) {
             NepaliDatePickerView(selectedDate: $selectedDate, jariMiti: $jariMiti, dateFormatter: dateFormatter)
+        }
+    }
+}
+
+struct ProvincePickerView: View {
+    @Binding var selectedProvince: String
+    let provinces: [String]
+    @State private var searchText: String = ""
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var isDarkMode: Bool { colorScheme == .dark }
+
+    var filteredProvinces: [String] {
+        searchText.isEmpty
+            ? provinces
+            : provinces.filter { $0.localizedCaseInsensitiveContains(searchText) }
+    }
+
+    var body: some View {
+        NavigationView {
+            ZStack {
+                FormBackgroundGradient()
+                    .ignoresSafeArea()
+                VStack(spacing: 0) {
+                    VStack(spacing: 16) {
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                                .padding(.leading, 16)
+                            TextField("प्रदेश खोज्नुहोस्", text: $searchText)
+                                .font(.body)
+                                .foregroundColor(isDarkMode ? .white : .primary)
+                                .padding(.vertical, 12)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+                        )
+                        .padding(.horizontal, 24)
+                        .padding(.top, 16)
+                        ScrollView {
+                            VStack(spacing: 12) {
+                                ForEach(filteredProvinces, id: \.self) { province in
+                                    Button(action: {
+                                        selectedProvince = province
+                                        dismiss()
+                                    }) {
+                                        HStack {
+                                            Text(province)
+                                                .font(.body)
+                                                .foregroundColor(isDarkMode ? .white : .primary)
+                                            Spacer()
+                                            if selectedProvince == province {
+                                                Image(systemName: "checkmark")
+                                                    .font(.system(size: 16, weight: .semibold))
+                                                    .foregroundColor(Color.activeBlue)
+                                            }
+                                        }
+                                        .padding(16)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(selectedProvince == province ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: selectedProvince == province ? 2 : 1)
+                                        )
+                                    }
+                                    .buttonStyle(.plain)
+                                    .padding(.horizontal, 24)
+                                }
+                            }
+                            .padding(.vertical, 8)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("प्रदेश छान्नुहोस्")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("रद्द") { dismiss() }
+                        .foregroundColor(Color.activeBlue)
+                }
+            }
         }
     }
 }

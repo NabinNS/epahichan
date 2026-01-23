@@ -36,6 +36,9 @@
 		397FA63D2F20DF5F001481AF /* AdditionalLocationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */; };
 		397FA63E2F20DF5F001481AF /* PersonalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */; };
 		397FA63F2F20DF5F001481AF /* CitizenshipDetailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA63B2F20DF5F001481AF /* CitizenshipDetailEntryView.swift */; };
+		397FA6442F20DF5F001481AF /* PermanentAddressFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6432F20DF5F001481AF /* PermanentAddressFormView.swift */; };
+		3981A7802F22A78A002AE789 /* TemporaryAddressFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3981A77E2F22A78A002AE789 /* TemporaryAddressFormView.swift */; };
+		3981A7812F22A78A002AE789 /* FamilyDetailEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3981A77F2F22A78A002AE789 /* FamilyDetailEntryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,9 @@
 		397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalLocationSelectionView.swift; sourceTree = "<group>"; };
 		397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDetailView.swift; sourceTree = "<group>"; };
 		397FA63B2F20DF5F001481AF /* CitizenshipDetailEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitizenshipDetailEntryView.swift; sourceTree = "<group>"; };
+		397FA6432F20DF5F001481AF /* PermanentAddressFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermanentAddressFormView.swift; sourceTree = "<group>"; };
+		3981A77E2F22A78A002AE789 /* TemporaryAddressFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporaryAddressFormView.swift; sourceTree = "<group>"; };
+		3981A77F2F22A78A002AE789 /* FamilyDetailEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyDetailEntryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,8 @@
 		397C64A62F1F966700BA09AE /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
+				3981A77F2F22A78A002AE789 /* FamilyDetailEntryView.swift */,
+				3981A77E2F22A78A002AE789 /* TemporaryAddressFormView.swift */,
 				393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */,
 				397219B72F21504F00145C81 /* MyDocumentsView.swift */,
 				397219B62F21504F00145C81 /* NotificationView.swift */,
@@ -183,6 +191,7 @@
 				397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */,
 				397FA63B2F20DF5F001481AF /* CitizenshipDetailEntryView.swift */,
 				397FA6382F20DF5E001481AF /* DashboardView.swift */,
+				397FA6432F20DF5F001481AF /* PermanentAddressFormView.swift */,
 				397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */,
 				397FA6342F209B04001481AF /* SplashScreenView.swift */,
 				397F04802F1FFB81006031FF /* VerificationDetailView.swift */,
@@ -341,7 +350,10 @@
 				397219B82F21504F00145C81 /* VerificationStatusView.swift in Sources */,
 				397F047D2F1FF105006031FF /* SelfieCaptureView.swift in Sources */,
 				397F04742F1FE2B7006031FF /* PasswordSetupView.swift in Sources */,
+				3981A7802F22A78A002AE789 /* TemporaryAddressFormView.swift in Sources */,
+				397FA6442F20DF5F001481AF /* PermanentAddressFormView.swift in Sources */,
 				393BC9812F22346900B82BBF /* FormBackgroundGradient.swift in Sources */,
+				3981A7812F22A78A002AE789 /* FamilyDetailEntryView.swift in Sources */,
 				397FA63F2F20DF5F001481AF /* CitizenshipDetailEntryView.swift in Sources */,
 				397F04722F1FE2B7006031FF /* EmailOTPView.swift in Sources */,
 				397219BA2F21504F00145C81 /* MyDocumentsView.swift in Sources */,
