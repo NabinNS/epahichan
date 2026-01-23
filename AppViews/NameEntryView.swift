@@ -50,39 +50,49 @@ struct NameEntryView: View {
                         }
 
                         VStack(alignment: .leading, spacing: 20) {
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("पूरा नाम नेपाली मा लेख्नुहोस्")
-                                    .font(.subheadline)
-                                    .foregroundColor(focusedField == .nepali ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
                                 TextField("", text: $nepaliName)
-                                    .font(.body)
-                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white : Color(.label))
                                     .padding(16)
                                     .background(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                            .fill(focusedField == .nepali
+                                                  ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                                  : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                     )
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .stroke(focusedField == .nepali ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .nepali ? 2 : 1)
+                                            .stroke(focusedField == .nepali
+                                                    ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                    : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                                                   lineWidth: focusedField == .nepali ? 1.5 : 1)
                                     )
                                     .focused($focusedField, equals: .nepali)
                             }
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("पूरा नाम English मा लेख्नुहोस्")
-                                    .font(.subheadline)
-                                    .foregroundColor(focusedField == .english ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
                                 TextField("", text: $englishName)
-                                    .font(.body)
-                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white : Color(.label))
                                     .padding(16)
                                     .background(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                            .fill(focusedField == .english
+                                                  ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                                  : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                     )
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .stroke(focusedField == .english ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .english ? 2 : 1)
+                                            .stroke(focusedField == .english
+                                                    ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                    : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                                                   lineWidth: focusedField == .english ? 1.5 : 1)
                                     )
                                     .focused($focusedField, equals: .english)
                             }

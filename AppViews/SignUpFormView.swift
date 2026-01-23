@@ -78,7 +78,7 @@ struct SignUpFormView: View {
                                 }
                             }
 
-        NavigationLink(destination: EmailOTPView()) {
+        NavigationLink(destination: MobileOTPView(phoneNumber: phoneNumber)) {
                                 Text("अगाडि बढ्नुहोस्")
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)

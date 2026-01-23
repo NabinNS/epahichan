@@ -87,31 +87,36 @@ struct CitizenshipDetailEntryView: View {
                         }
 
                         VStack(alignment: .leading, spacing: 20) {
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("नागरिकता नम्बर")
-                                    .font(.subheadline)
-                                    .foregroundColor(focusedField == .citizenshipNumber ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
 
                                 TextField("", text: $citizenshipNumber)
-                                    .font(.body)
-                                    .foregroundColor(isDarkMode ? .white : .primary)
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white : Color(.label))
                                     .keyboardType(.numberPad)
                                     .padding(16)
                                     .background(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                            .fill(focusedField == .citizenshipNumber
+                                                  ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                                  : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                     )
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .stroke(focusedField == .citizenshipNumber ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .citizenshipNumber ? 2 : 1)
+                                            .stroke(focusedField == .citizenshipNumber
+                                                    ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                    : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                                                   lineWidth: focusedField == .citizenshipNumber ? 1.5 : 1)
                                     )
                                     .focused($focusedField, equals: .citizenshipNumber)
                             }
 
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("जारी मिति")
-                                    .font(.subheadline)
-                                    .foregroundColor(showDatePicker ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
 
                                 Button(action: { showDatePicker = true }) {
                                     HStack {
@@ -137,10 +142,10 @@ struct CitizenshipDetailEntryView: View {
                                 .buttonStyle(.plain)
                             }
 
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("जिल्ला")
-                                    .font(.subheadline)
-                                    .foregroundColor(showDistrictPicker ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
 
                                 Button(action: { showDistrictPicker = true }) {
                                     HStack {

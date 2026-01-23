@@ -1,12 +1,21 @@
 import SwiftUI
 
 struct MobileOTPView: View {
+    let phoneNumber: String
     @State private var otpDigits: [String] = Array(repeating: "", count: 6)
     @FocusState private var focusedField: Int?
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
 
     private var isDarkMode: Bool { colorScheme == .dark }
+    
+    init(phoneNumber: String = "98XXXXXXXX") {
+        self.phoneNumber = phoneNumber
+    }
+    
+    private var isOTPComplete: Bool {
+        otpDigits.allSatisfy { !$0.isEmpty }
+    }
 
     var body: some View {
         ZStack {
@@ -25,7 +34,7 @@ struct MobileOTPView: View {
                                 .frame(width: 120, height: 120)
                                 .shadow(color: Color.accentViolet.opacity(0.3), radius: 20, x: 0, y: 10)
 
-                            Text("Epahichan मा स्वागत छ")
+                            Text("OTP प्रविष्ट गर्नुहोस्")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(isDarkMode ? .white : .primary)
                                 .multilineTextAlignment(.center)
@@ -36,11 +45,12 @@ struct MobileOTPView: View {
                             hideKeyboard()
                         }
 
-                        VStack(alignment: .leading, spacing: 20) {
-                            Text("तपाईंको फोनमा आएको ६ अंकको OTP लेख्नुहोस्")
+                        VStack(spacing: 20) {
+                            Text("\(phoneNumber) मा आएको ६ अंकको OTP लेख्नुहोस्")
                                 .font(.subheadline)
                                 .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
-                                .multilineTextAlignment(.leading)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
 
                             HStack(spacing: 12) {
                                 ForEach(0..<6, id: \.self) { index in
@@ -91,7 +101,18 @@ struct MobileOTPView: View {
                                     .cornerRadius(14)
                             }
                             .buttonStyle(.plain)
+                            .disabled(!isOTPComplete)
+                            .opacity(isOTPComplete ? 1.0 : 0.8)
+                            
+                            Button(action: {}) {
+                                Text("OTP पुन पठाउनुहोस्")
+                                    .font(.footnote)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color.activeBlue)
+                            }
+                            .padding(.top, 8)
                         }
+                        .frame(maxWidth: .infinity)
                         .padding(.horizontal, 24)
                         .contentShape(Rectangle())
                         .onTapGesture {

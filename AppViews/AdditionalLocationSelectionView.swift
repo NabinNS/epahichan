@@ -66,26 +66,31 @@ struct AdditionalLocationSelectionView: View {
                         }
 
                         VStack(alignment: .leading, spacing: 20) {
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("स्थान खोज्नुहोस्")
-                                    .font(.subheadline)
-                                    .foregroundColor(isSearchFocused ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
                                 HStack(spacing: 12) {
                                     Image(systemName: "magnifyingglass")
                                         .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                     TextField("स्थान खोज्नुहोस्", text: $searchText)
-                                        .font(.body)
-                                        .foregroundColor(isDarkMode ? .white : .primary)
+                                        .font(.system(size: 16, weight: .regular))
+                                        .foregroundColor(isDarkMode ? .white : Color(.label))
                                         .focused($isSearchFocused)
                                 }
                                 .padding(16)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        .fill(isSearchFocused
+                                              ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                              : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(isSearchFocused ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: isSearchFocused ? 2 : 1)
+                                        .stroke(isSearchFocused
+                                                ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                                               lineWidth: isSearchFocused ? 1.5 : 1)
                                 )
                             }
 

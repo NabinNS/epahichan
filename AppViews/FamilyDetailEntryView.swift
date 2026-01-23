@@ -112,21 +112,26 @@ struct FamilyDetailEntryView: View {
     }
 
     private func inputRow(label: String, text: Binding<String>, field: Field) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Text(label)
-                .font(.subheadline)
-                .foregroundColor(focusedField == field ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                .font(.system(size: 14, weight: .regular))
+                .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
             TextField("", text: text)
-                .font(.body)
-                .foregroundColor(isDarkMode ? .white : .primary)
+                .font(.system(size: 16, weight: .regular))
+                .foregroundColor(isDarkMode ? .white : Color(.label))
                 .padding(16)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                        .fill(focusedField == field
+                              ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                              : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(focusedField == field ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == field ? 2 : 1)
+                        .stroke(focusedField == field
+                                ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                               lineWidth: focusedField == field ? 1.5 : 1)
                 )
                 .focused($focusedField, equals: field)
         }

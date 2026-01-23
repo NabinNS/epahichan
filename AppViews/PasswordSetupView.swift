@@ -13,6 +13,10 @@ struct PasswordSetupView: View {
     enum Field {
         case password, confirm
     }
+    
+    private var isPasswordValid: Bool {
+        !password.isEmpty && !confirmPassword.isEmpty && password == confirmPassword
+    }
 
     var body: some View {
         ZStack {
@@ -31,7 +35,7 @@ struct PasswordSetupView: View {
                                 .frame(width: 120, height: 120)
                                 .shadow(color: Color.accentViolet.opacity(0.3), radius: 20, x: 0, y: 10)
 
-                            Text("Epahichan मा स्वागत छ")
+                            Text("सुरक्षित पासवर्ड राख्नुहोस्")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(isDarkMode ? .white : .primary)
                                 .multilineTextAlignment(.center)
@@ -43,21 +47,21 @@ struct PasswordSetupView: View {
                         }
 
                         VStack(alignment: .leading, spacing: 20) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("पासवर्ड राख्नुहोस्")
-                                    .font(.subheadline)
-                                    .foregroundColor(focusedField == .password ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("पासवर्ड लेख्नुहोस्")
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
 
                                 HStack(spacing: 0) {
                                     Group {
                                         if showPassword {
                                             TextField("", text: $password)
-                                                .font(.body)
-                                                .foregroundColor(isDarkMode ? .white : .primary)
+                                                .font(.system(size: 16, weight: .regular))
+                                                .foregroundColor(isDarkMode ? .white : Color(.label))
                                         } else {
                                             SecureField("", text: $password)
-                                                .font(.body)
-                                                .foregroundColor(isDarkMode ? .white : .primary)
+                                                .font(.system(size: 16, weight: .regular))
+                                                .foregroundColor(isDarkMode ? .white : Color(.label))
                                         }
                                     }
                                     .autocapitalization(.none)
@@ -76,29 +80,34 @@ struct PasswordSetupView: View {
                                 }
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        .fill(focusedField == .password
+                                              ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                              : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(focusedField == .password ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .password ? 2 : 1)
+                                        .stroke(focusedField == .password
+                                                ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                                               lineWidth: focusedField == .password ? 1.5 : 1)
                                 )
                             }
 
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text("पासवर्ड पुन लेख्नुहोस्")
-                                    .font(.subheadline)
-                                    .foregroundColor(focusedField == .confirm ? Color.activeBlue : (isDarkMode ? .white.opacity(0.8) : .secondary))
+                                    .font(.system(size: 14, weight: .regular))
+                                    .foregroundColor(isDarkMode ? .white.opacity(0.8) : .secondary)
 
                                 HStack(spacing: 0) {
                                     Group {
                                         if showConfirmPassword {
                                             TextField("", text: $confirmPassword)
-                                                .font(.body)
-                                                .foregroundColor(isDarkMode ? .white : .primary)
+                                                .font(.system(size: 16, weight: .regular))
+                                                .foregroundColor(isDarkMode ? .white : Color(.label))
                                         } else {
                                             SecureField("", text: $confirmPassword)
-                                                .font(.body)
-                                                .foregroundColor(isDarkMode ? .white : .primary)
+                                                .font(.system(size: 16, weight: .regular))
+                                                .foregroundColor(isDarkMode ? .white : Color(.label))
                                         }
                                     }
                                     .autocapitalization(.none)
@@ -109,7 +118,7 @@ struct PasswordSetupView: View {
                                     Spacer(minLength: 0)
 
                                     Button(action: { withAnimation { showConfirmPassword.toggle() } }) {
-                                        Image(systemName: showConfirmPassword ? "eye.slash.fill" : "eye.fill")
+                                        Image(systemName: showConfirmPassword ? "eye.fill" : "eye.slash.fill")
                                             .font(.system(size: 16))
                                             .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                     }
@@ -117,11 +126,16 @@ struct PasswordSetupView: View {
                                 }
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                                        .fill(focusedField == .confirm
+                                              ? (isDarkMode ? Color.white.opacity(0.2) : Color(.systemGray5))
+                                              : (isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground)))
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(focusedField == .confirm ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: focusedField == .confirm ? 2 : 1)
+                                        .stroke(focusedField == .confirm
+                                                ? (isDarkMode ? Color.white.opacity(0.3) : Color(.systemGray3))
+                                                : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)),
+                                               lineWidth: focusedField == .confirm ? 1.5 : 1)
                                 )
                             }
 
@@ -135,6 +149,8 @@ struct PasswordSetupView: View {
                                     .cornerRadius(14)
                             }
                             .buttonStyle(.plain)
+                            .disabled(!isPasswordValid)
+                            .opacity(isPasswordValid ? 1.0 : 0.8)
                         }
                         .padding(.horizontal, 24)
                         .contentShape(Rectangle())
