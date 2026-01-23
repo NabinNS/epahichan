@@ -7,6 +7,8 @@ struct CitizenshipDetailEntryView: View {
     @State private var showDistrictPicker = false
     @State private var showDatePicker = false
     @State private var selectedDate = Date()
+    @State private var showConfirmation = false
+    @State private var navigateToDashboard = false
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: Field?
@@ -188,8 +190,8 @@ struct CitizenshipDetailEntryView: View {
                                 }
                                 .buttonStyle(.plain)
 
-                                NavigationLink(destination: FamilyDetailEntryView()) {
-                                    Text("अगाडि बढ्नुहोस्")
+                                Button(action: { showConfirmation = true }) {
+                                    Text("पेश गर्नुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
@@ -229,6 +231,19 @@ struct CitizenshipDetailEntryView: View {
         .sheet(isPresented: $showDatePicker) {
             NepaliDatePickerView(selectedDate: $selectedDate, jariMiti: $jariMiti, dateFormatter: dateFormatter)
         }
+        .alert("पुष्टि गर्नुहोस्", isPresented: $showConfirmation) {
+            Button("रद्द", role: .cancel) {}
+            Button("पेश गर्नुहोस्") {
+                navigateToDashboard = true
+            }
+        } message: {
+            Text("के तपाईं यो विवरण पेश गर्न चाहनुहुन्छ?")
+        }
+        .background(
+            NavigationLink(destination: DashboardView(), isActive: $navigateToDashboard) {
+                EmptyView()
+            }
+        )
     }
 }
 

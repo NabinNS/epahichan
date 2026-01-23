@@ -160,6 +160,8 @@ struct PermanentAddressEntryPage: View {
     @State private var district = ""
     @State private var ward = ""
     @State private var tole = ""
+    @State private var showConfirmation = false
+    @State private var navigateToDashboard = false
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     private var isDarkMode: Bool { colorScheme == .dark }
@@ -221,8 +223,8 @@ struct PermanentAddressEntryPage: View {
                                     .cornerRadius(14)
                                 }
                                 .buttonStyle(.plain)
-                                NavigationLink(destination: TemporaryAddressEntryPage()) {
-                                    Text("अगाडि बढ्नुहोस्")
+                                Button(action: { showConfirmation = true }) {
+                                    Text("पेश गर्नुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
@@ -255,6 +257,19 @@ struct PermanentAddressEntryPage: View {
         .navigationTitle("स्थायी ठेगाना")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .alert("पुष्टि गर्नुहोस्", isPresented: $showConfirmation) {
+            Button("रद्द", role: .cancel) {}
+            Button("पेश गर्नुहोस्") {
+                navigateToDashboard = true
+            }
+        } message: {
+            Text("के तपाईं यो विवरण पेश गर्न चाहनुहुन्छ?")
+        }
+        .background(
+            NavigationLink(destination: DashboardView(), isActive: $navigateToDashboard) {
+                EmptyView()
+            }
+        )
     }
 }
 

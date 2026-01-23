@@ -65,23 +65,6 @@ struct ProfileView: View {
                                 destination: CitizenshipDetailEntryView()
                             )
                             
-                            profileRow(
-                                icon: "person.text.rectangle.fill",
-                                title: "नाम विवरण",
-                                destination: NameEntryView()
-                            )
-                            
-                            profileRow(
-                                icon: "camera.fill",
-                                title: "सेल्फी फोटो",
-                                destination: SelfieCaptureView()
-                            )
-                            
-                            profileRow(
-                                icon: "doc.on.doc.fill",
-                                title: "कागजातहरू",
-                                destination: DocumentUploadView(documentType: "नागरिकता राष्ट्रिय परिचयपत्र")
-                            )
                         }
                         .padding(.horizontal, 24)
                         

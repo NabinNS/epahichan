@@ -4,6 +4,8 @@ struct FamilyDetailEntryView: View {
     @State private var fatherName: String = ""
     @State private var grandfatherName: String = ""
     @State private var spouseName: String = ""
+    @State private var showConfirmation = false
+    @State private var navigateToDashboard = false
 
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
@@ -97,7 +99,7 @@ struct FamilyDetailEntryView: View {
                     .cornerRadius(14)
                 }
                 .buttonStyle(.plain)
-                Button(action: {}) {
+                Button(action: { showConfirmation = true }) {
                     Text("पेश गर्नुहोस्")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white)
@@ -109,6 +111,19 @@ struct FamilyDetailEntryView: View {
             }
         }
         .padding(.horizontal, 24)
+        .alert("पुष्टि गर्नुहोस्", isPresented: $showConfirmation) {
+            Button("रद्द", role: .cancel) {}
+            Button("पेश गर्नुहोस्") {
+                navigateToDashboard = true
+            }
+        } message: {
+            Text("के तपाईं यो विवरण पेश गर्न चाहनुहुन्छ?")
+        }
+        .background(
+            NavigationLink(destination: DashboardView(), isActive: $navigateToDashboard) {
+                EmptyView()
+            }
+        )
     }
 
     private func inputRow(label: String, text: Binding<String>, field: Field) -> some View {

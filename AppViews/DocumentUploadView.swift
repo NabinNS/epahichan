@@ -148,17 +148,17 @@ struct DocumentUploadView: View {
             Text("क्यामेरा बाट खिच्नुहोस् वा ग्यालरी बाट फोटो छान्नुहोस्")
         }
         .sheet(item: $pickerContext) { ctx in
-            ImagePicker(image: $temporaryImage, source: ctx.source, onDismiss: { [self] in
+            ImagePicker(image: $temporaryImage, source: ctx.source, onDismiss: {
                 let slot = ctx.slot
-                if let img = temporaryImage {
+                if let img = self.temporaryImage {
                     switch slot {
-                    case .front: frontImage = img
-                    case .back: backImage = img
-                    case .single: singleImage = img
+                    case .front: self.frontImage = img
+                    case .back: self.backImage = img
+                    case .single: self.singleImage = img
                     }
                 }
-                temporaryImage = nil
-                pickerContext = nil
+                self.temporaryImage = nil
+                self.pickerContext = nil
             })
         }
     }
