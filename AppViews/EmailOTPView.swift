@@ -97,6 +97,7 @@ struct EmailOTPView: View {
         }
         .navigationTitle("इमेल OTP")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 
 }

@@ -1,4 +1,11 @@
 import SwiftUI
+import UIKit
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 struct SignUpFormView: View {
     @State private var phoneNumber: String = ""
@@ -15,10 +22,6 @@ struct SignUpFormView: View {
         ZStack {
             FormBackgroundGradient()
                 .ignoresSafeArea()
-                .onTapGesture {
-                    // Dismiss keyboard when tapping background
-                    isPhoneFocused = false
-                }
 
             ScrollView {
                 VStack(spacing: 0) {
@@ -38,8 +41,9 @@ struct SignUpFormView: View {
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 24)
+                        .contentShape(Rectangle())
                         .onTapGesture {
-                            isPhoneFocused = false
+                            hideKeyboard()
                         }
 
                         VStack(alignment: .leading, spacing: 20) {
@@ -111,15 +115,28 @@ struct SignUpFormView: View {
 
                         }
                         .padding(.horizontal, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
 
                         Spacer().frame(height: 40)
                     }
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    hideKeyboard()
+                }
             }
             .scrollDismissesKeyboard(.interactively)
         }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            hideKeyboard()
+        }
         .navigationTitle("साइन अप")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 
 }

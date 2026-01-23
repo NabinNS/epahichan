@@ -120,6 +120,7 @@ struct DocumentUploadView: View {
         }
         .navigationTitle("फोटो अपलोड")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .confirmationDialog("फोटो थप्नुहोस्", isPresented: Binding(
             get: { pendingSlot != nil },
             set: { if !$0 { pendingSlot = nil } }
@@ -149,15 +150,15 @@ struct DocumentUploadView: View {
         .sheet(item: $pickerContext) { ctx in
             ImagePicker(image: $temporaryImage, source: ctx.source, onDismiss: {
                 let slot = ctx.slot
-                if let img = temporaryImage {
+                if let img = self.temporaryImage {
                     switch slot {
-                    case .front: frontImage = img
-                    case .back: backImage = img
-                    case .single: singleImage = img
+                    case .front: self.frontImage = img
+                    case .back: self.backImage = img
+                    case .single: self.singleImage = img
                     }
                 }
-                temporaryImage = nil
-                pickerContext = nil
+                self.temporaryImage = nil
+                self.pickerContext = nil
             })
         }
     }

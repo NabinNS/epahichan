@@ -227,6 +227,7 @@ struct TemporaryAddressEntryPage: View {
         }
         .navigationTitle("अस्थायी ठेगाना")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

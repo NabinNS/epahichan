@@ -226,6 +226,7 @@ struct AdditionalLocationSelectionView: View {
         }
         .navigationTitle("ईस्थान थप्नुहोस्")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

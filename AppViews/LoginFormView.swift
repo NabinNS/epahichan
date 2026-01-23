@@ -21,10 +21,9 @@ struct LoginFormView: View {
     }
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                FormBackgroundGradient()
-                    .ignoresSafeArea()
+        ZStack {
+            FormBackgroundGradient()
+                .ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 0) {
@@ -98,7 +97,7 @@ struct LoginFormView: View {
 
                                         // Show/Hide password button
                                         Button(action: { withAnimation { showPassword.toggle() } }) {
-                                            Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
+                                            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                                                 .font(.system(size: 16))
                                                 .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                         }
@@ -163,10 +162,10 @@ struct LoginFormView: View {
             }
             .navigationTitle("")
             .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 
-}
 
 #Preview {
     LoginFormView()

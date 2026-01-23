@@ -31,6 +31,7 @@ struct FamilyDetailEntryView: View {
         }
         .navigationTitle("परिवार विवरण")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 
     private var headerSection: some View {

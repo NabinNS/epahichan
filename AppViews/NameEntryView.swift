@@ -117,6 +117,7 @@ struct NameEntryView: View {
         }
         .navigationTitle("नाम")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

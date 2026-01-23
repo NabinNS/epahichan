@@ -227,6 +227,7 @@ struct PermanentAddressEntryPage: View {
         }
         .navigationTitle("स्थायी ठेगाना")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

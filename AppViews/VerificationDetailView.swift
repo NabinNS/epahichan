@@ -154,6 +154,7 @@ struct VerificationDetailView: View {
         }
         .navigationTitle("विवरण")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 
     private func detailCard<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {

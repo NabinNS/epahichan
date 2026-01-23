@@ -121,6 +121,7 @@ struct DocumentSelectionView: View {
         }
         .navigationTitle("कागज छान्नुहोस्")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

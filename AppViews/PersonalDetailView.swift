@@ -30,21 +30,20 @@ struct PersonalDetailView: View {
     ]
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 16) {
-                    detailCard(title: "व्यक्तिगत विवरण", data: personalInfo)
-                    detailCard(title: "स्थायी ठेगाना", data: permanentAddress)
-                    detailCard(title: "अस्थायी ठेगाना", data: temporaryAddress)
-                    detailCard(title: "तीन पुस्ते विवरण", data: ancestryInfo)
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 24)
+        ScrollView {
+            VStack(spacing: 16) {
+                detailCard(title: "व्यक्तिगत विवरण", data: personalInfo)
+                detailCard(title: "स्थायी ठेगाना", data: permanentAddress)
+                detailCard(title: "अस्थायी ठेगाना", data: temporaryAddress)
+                detailCard(title: "तीन पुस्ते विवरण", data: ancestryInfo)
             }
-            .background(Color(.systemGroupedBackground).ignoresSafeArea())
-            .navigationTitle("ब्यक्तिगत विवरण")
-            .navigationBarTitleDisplayMode(.inline)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 24)
         }
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
+        .navigationTitle("ब्यक्तिगत विवरण")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 
     @ViewBuilder

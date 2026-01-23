@@ -86,6 +86,7 @@ struct EmailEntryView: View {
         }
         .navigationTitle("इमेल")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     }
 
 }
