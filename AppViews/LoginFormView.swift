@@ -44,6 +44,10 @@ struct LoginFormView: View {
                                     .multilineTextAlignment(.center)
                             }
                             .padding(.top, 24)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                hideKeyboard()
+                            }
 
                             // MARK: Input Fields
                             VStack(alignment: .leading, spacing: 20) {
@@ -154,18 +158,31 @@ struct LoginFormView: View {
                                 }
                             }
                             .padding(.horizontal, 24)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                hideKeyboard()
+                            }
 
                             Spacer().frame(height: 40)
                         }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
                 }
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                hideKeyboard()
             }
             .navigationTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
     }
-
+}
 
 #Preview {
     LoginFormView()

@@ -31,6 +31,10 @@ struct MobileOTPView: View {
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
 
                         VStack(alignment: .leading, spacing: 20) {
                             Text("तपाईंको फोनमा आएको ६ अंकको OTP लेख्नुहोस्")
@@ -89,10 +93,23 @@ struct MobileOTPView: View {
                             .buttonStyle(.plain)
                         }
                         .padding(.horizontal, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
 
                         Spacer().frame(height: 40)
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
                 }
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                hideKeyboard()
             }
         }
         .navigationTitle("मोबाइल OTP")

@@ -44,6 +44,10 @@ struct NameEntryView: View {
                             }
                         }
                         .padding(.top, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
 
                         VStack(alignment: .leading, spacing: 20) {
                             VStack(alignment: .leading, spacing: 8) {
@@ -110,9 +114,22 @@ struct NameEntryView: View {
                             }
                         }
                         .padding(.horizontal, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
                         Spacer().frame(height: 40)
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
                 }
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                hideKeyboard()
             }
         }
         .navigationTitle("नाम")

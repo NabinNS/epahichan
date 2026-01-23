@@ -25,9 +25,22 @@ struct FamilyDetailEntryView: View {
                         headerSection
                         formSection
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
                     Spacer().frame(height: 40)
                 }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    hideKeyboard()
+                }
             }
+            .scrollDismissesKeyboard(.interactively)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            hideKeyboard()
         }
         .navigationTitle("परिवार विवरण")
         .navigationBarTitleDisplayMode(.inline)
@@ -57,6 +70,10 @@ struct FamilyDetailEntryView: View {
             }
         }
         .padding(.top, 24)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 
     private var formSection: some View {

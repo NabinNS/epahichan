@@ -37,6 +37,10 @@ struct PasswordSetupView: View {
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
 
                         VStack(alignment: .leading, spacing: 20) {
                             VStack(alignment: .leading, spacing: 8) {
@@ -64,7 +68,7 @@ struct PasswordSetupView: View {
                                     Spacer(minLength: 0)
 
                                     Button(action: { withAnimation { showPassword.toggle() } }) {
-                                        Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
+                                        Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                                             .font(.system(size: 16))
                                             .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                     }
@@ -133,10 +137,23 @@ struct PasswordSetupView: View {
                             .buttonStyle(.plain)
                         }
                         .padding(.horizontal, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
 
                         Spacer().frame(height: 40)
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
                 }
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                hideKeyboard()
             }
         }
         .navigationTitle("पासवर्ड")

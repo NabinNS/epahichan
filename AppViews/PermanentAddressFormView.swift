@@ -184,6 +184,10 @@ struct PermanentAddressEntryPage: View {
                             }
                         }
                         .padding(.top, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
                         VStack(alignment: .leading, spacing: 24) {
                             PermanentAddressFormView(
                                 province: $province,
@@ -220,9 +224,22 @@ struct PermanentAddressEntryPage: View {
                             }
                         }
                         .padding(.horizontal, 24)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
                         Spacer().frame(height: 40)
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
                 }
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                hideKeyboard()
             }
         }
         .navigationTitle("स्थायी ठेगाना")
