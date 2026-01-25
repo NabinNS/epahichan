@@ -15,6 +15,8 @@ struct DashboardView: View {
         ProgressStep(id: 4, title: "नागरिकता विवरण", isCompleted: false, date: nil),
         ProgressStep(id: 5, title: "प्रमाणीकरण ईस्थान", isCompleted: false, date: nil),
         ProgressStep(id: 6, title: "प्रमाणीकरण पठाउनु", isCompleted: false, date: nil)
+
+        
     ]
     
     var completedCount: Int {
