@@ -34,7 +34,6 @@
 		397F047F2F1FF3DB006031FF /* LocationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F047E2F1FF3DB006031FF /* LocationSelectionView.swift */; };
 		397F04812F1FFB81006031FF /* VerificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397F04802F1FFB81006031FF /* VerificationDetailView.swift */; };
 		397FA6352F209B04001481AF /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6342F209B04001481AF /* SplashScreenView.swift */; };
-		397FA6372F209C1A001481AF /* SplashLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 397FA6362F209C1A001481AF /* SplashLogo.png */; };
 		397FA63C2F20DF5F001481AF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6382F20DF5E001481AF /* DashboardView.swift */; };
 		397FA63D2F20DF5F001481AF /* AdditionalLocationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */; };
 		397FA63E2F20DF5F001481AF /* PersonalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */; };
@@ -324,7 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				396E0F842F1F85B3009F2050 /* Preview Assets.xcassets in Resources */,
-				397FA6372F209C1A001481AF /* SplashLogo.png in Resources */,
 				396E0F812F1F85B3009F2050 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
