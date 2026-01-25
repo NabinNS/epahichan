@@ -156,6 +156,11 @@ struct DashboardView: View {
                     .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: -5)
             )
         }
+        .background(
+            Rectangle()
+                .fill(isDarkMode ? Color.black.opacity(0.3) : Color.white)
+                .ignoresSafeArea(edges: .bottom)
+        )
     }
 
  
