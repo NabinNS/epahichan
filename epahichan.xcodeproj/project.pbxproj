@@ -91,7 +91,6 @@
 		397F047E2F1FF3DB006031FF /* LocationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSelectionView.swift; sourceTree = "<group>"; };
 		397F04802F1FFB81006031FF /* VerificationDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationDetailView.swift; sourceTree = "<group>"; };
 		397FA6342F209B04001481AF /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		397FA6362F209C1A001481AF /* SplashLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SplashLogo.png; path = ../../../Downloads/SplashLogo.png; sourceTree = "<group>"; };
 		397FA6382F20DF5E001481AF /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		397FA6392F20DF5F001481AF /* AdditionalLocationSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalLocationSelectionView.swift; sourceTree = "<group>"; };
 		397FA63A2F20DF5F001481AF /* PersonalDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDetailView.swift; sourceTree = "<group>"; };
