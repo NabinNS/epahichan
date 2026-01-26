@@ -55,23 +55,23 @@ struct CitizenshipDetailEntryView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 40)
+                    Spacer().frame(height: 16)
 
-                    VStack(spacing: 32) {
-                        VStack(spacing: 16) {
+                    VStack(spacing: 24) {
+                        VStack(spacing: 12) {
                             ZStack {
                                 Circle()
                                     .fill(Color.activeBlue.opacity(0.15))
-                                    .frame(width: 80, height: 80)
+                                    .frame(width: 70, height: 70)
 
                                 Image(systemName: "doc.text.fill")
-                                    .font(.system(size: 36, weight: .semibold))
+                                    .font(.system(size: 32, weight: .semibold))
                                     .foregroundColor(Color.activeBlue)
                             }
 
-                            VStack(spacing: 8) {
+                            VStack(spacing: 6) {
                                 Text("नागरिकता विवरण भर्नुहोस्")
-                                    .font(.system(size: 24, weight: .bold))
+                                    .font(.system(size: 20, weight: .bold))
                                     .foregroundColor(isDarkMode ? .white : .primary)
                                     .multilineTextAlignment(.center)
 
@@ -82,7 +82,7 @@ struct CitizenshipDetailEntryView: View {
                                     .padding(.horizontal, 8)
                             }
                         }
-                        .padding(.top, 24)
+                        .padding(.top, 8)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             hideKeyboard()
@@ -208,7 +208,7 @@ struct CitizenshipDetailEntryView: View {
                             hideKeyboard()
                         }
 
-                        Spacer().frame(height: 40)
+                        Spacer().frame(height: 20)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {

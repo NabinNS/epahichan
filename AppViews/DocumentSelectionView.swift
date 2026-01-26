@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DocumentSelectionView: View {
-    @State private var selectedDocuments: Set<String> = []
+    @State private var selectedDocument: String? = nil
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     
@@ -52,16 +52,16 @@ struct DocumentSelectionView: View {
                             VStack(spacing: 12) {
                                 ForEach(documents, id: \.self) { document in
                                     Button(action: {
-                                        if selectedDocuments.contains(document) {
-                                            selectedDocuments.remove(document)
+                                        if selectedDocument == document {
+                                            selectedDocument = nil
                                         } else {
-                                            selectedDocuments.insert(document)
+                                            selectedDocument = document
                                         }
                                     }) {
                                         HStack(spacing: 16) {
-                                            Image(systemName: selectedDocuments.contains(document) ? "checkmark.square.fill" : "square")
+                                            Image(systemName: selectedDocument == document ? "checkmark.circle.fill" : "circle")
                                                 .font(.system(size: 22))
-                                                .foregroundColor(selectedDocuments.contains(document) ? Color.activeBlue : (isDarkMode ? .white.opacity(0.4) : .secondary))
+                                                .foregroundColor(selectedDocument == document ? Color.activeBlue : (isDarkMode ? .white.opacity(0.4) : .secondary))
                                             
                                             Text(document)
                                                 .font(.body)
@@ -76,7 +76,7 @@ struct DocumentSelectionView: View {
                                         )
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
-                                                .stroke(selectedDocuments.contains(document) ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: selectedDocuments.contains(document) ? 2 : 1)
+                                                .stroke(selectedDocument == document ? Color.activeBlue : (isDarkMode ? Color.white.opacity(0.2) : Color(.separator)), lineWidth: selectedDocument == document ? 2 : 1)
                                         )
                                     }
                                     .buttonStyle(.plain)
@@ -99,7 +99,7 @@ struct DocumentSelectionView: View {
                                 }
                                 .buttonStyle(.plain)
                                 
-                                NavigationLink(destination: DocumentUploadView(documentType: selectedDocuments.first ?? documents[0])) {
+                                NavigationLink(destination: DocumentUploadView(documentType: selectedDocument ?? documents[0])) {
                                     Text("अगाडि बढ्नुहोस्")
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.white)
@@ -109,8 +109,8 @@ struct DocumentSelectionView: View {
                                         .cornerRadius(14)
                                 }
                                 .buttonStyle(.plain)
-                                .disabled(selectedDocuments.isEmpty)
-                                .opacity(selectedDocuments.isEmpty ? 0.6 : 1.0)
+                                .disabled(selectedDocument == nil)
+                                .opacity(selectedDocument == nil ? 0.6 : 1.0)
                             }
                         }
                         .padding(.horizontal, 24)

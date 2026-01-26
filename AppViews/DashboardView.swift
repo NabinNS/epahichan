@@ -4,6 +4,7 @@ struct DashboardView: View {
     @State private var showNotifications = false
     @State private var selectedTab = 0
     @Environment(\.colorScheme) private var colorScheme
+    @AppStorage("isDarkMode") private var isDarkModeEnabled = false
     
     private var isDarkMode: Bool { colorScheme == .dark }
     
@@ -15,8 +16,6 @@ struct DashboardView: View {
         ProgressStep(id: 4, title: "नागरिकता विवरण", isCompleted: false, date: nil),
         ProgressStep(id: 5, title: "प्रमाणीकरण ईस्थान", isCompleted: false, date: nil),
         ProgressStep(id: 6, title: "प्रमाणीकरण पठाउनु", isCompleted: false, date: nil)
-
-        
     ]
     
     var completedCount: Int {
@@ -35,6 +34,7 @@ struct DashboardView: View {
                             headerSection
                             contentSection
                         }
+                        .padding(.bottom, 80) // Add padding to prevent content from being hidden behind tab bar
                     }
                 } else if selectedTab == 1 {
                     ProfileView()
@@ -51,6 +51,8 @@ struct DashboardView: View {
         .navigationTitle("")
         .navigationBarHidden(true)
         .overlay(notificationOverlay, alignment: .topTrailing)
+        .ignoresSafeArea(.container, edges: .bottom) // This removes the bottom gap
+        .preferredColorScheme(isDarkModeEnabled ? .dark : .light)
     }
     
     private var headerSection: some View {
@@ -123,7 +125,7 @@ struct DashboardView: View {
                     }
                     .foregroundColor(selectedTab == 0 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 60)
+                    .padding(.vertical, 12)
                 }
                 
                 // Profile Tab
@@ -136,7 +138,7 @@ struct DashboardView: View {
                     }
                     .foregroundColor(selectedTab == 1 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 60)
+                    .padding(.vertical, 12)
                 }
                 
                 // Settings Tab
@@ -149,23 +151,26 @@ struct DashboardView: View {
                     }
                     .foregroundColor(selectedTab == 2 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 60)
+                    .padding(.vertical, 12)
                 }
             }
+            .padding(.bottom, getSafeAreaBottom()) // Add safe area padding inside the tab bar
             .background(
-                Rectangle()
-                    .fill(isDarkMode ? Color.black.opacity(0.3) : Color.white)
+                (isDarkMode ? Color.black.opacity(0.3) : Color.white)
                     .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: -5)
             )
         }
-        .background(
-            Rectangle()
-                .fill(isDarkMode ? Color.black.opacity(0.3) : Color.white)
-                .ignoresSafeArea(edges: .bottom)
-        )
     }
-
- 
+    
+    // Helper function to get bottom safe area
+    private func getSafeAreaBottom() -> CGFloat {
+        let keyWindow = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+        
+        return keyWindow?.safeAreaInsets.bottom ?? 0
+    }
     
     private var statusCard: some View {
         VStack(spacing: 16) {

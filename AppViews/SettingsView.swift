@@ -2,8 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @State private var notificationsEnabled = true
-    @State private var darkModeEnabled = false
+    @AppStorage("isDarkMode") private var isDarkModeEnabled = false
     
     private var isDarkMode: Bool { colorScheme == .dark }
     
@@ -43,12 +42,12 @@ struct SettingsView: View {
                         
                         // Settings List
                         VStack(spacing: 16) {
-                            // Notifications
+                            // Dark Mode Toggle
                             settingsRow(
-                                icon: "bell.fill",
-                                title: "सूचनाहरू",
-                                subtitle: "सूचनाहरू सक्षम/असक्षम गर्नुहोस्",
-                                toggle: $notificationsEnabled
+                                icon: isDarkModeEnabled ? "moon.fill" : "sun.max.fill",
+                                title: "डार्क मोड",
+                                subtitle: isDarkModeEnabled ? "डार्क मोड सक्षम" : "लाइट मोड सक्षम",
+                                toggle: $isDarkModeEnabled
                             )
                             
                             // Language

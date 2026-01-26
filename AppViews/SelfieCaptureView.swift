@@ -14,14 +14,36 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
+        picker.allowsEditing = false
+        
         switch source {
         case .camera(let front):
+            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                // Fallback to photo library if camera is not available
+                picker.sourceType = .photoLibrary
+                return picker
+            }
             picker.sourceType = .camera
-            picker.cameraDevice = front ? .front : .rear
+            picker.modalPresentationStyle = .fullScreen
+            
+            // Check if the requested camera device is available
+            if front {
+                if UIImagePickerController.isCameraDeviceAvailable(.front) {
+                    picker.cameraDevice = .front
+                } else if UIImagePickerController.isCameraDeviceAvailable(.rear) {
+                    picker.cameraDevice = .rear
+                }
+            } else {
+                if UIImagePickerController.isCameraDeviceAvailable(.rear) {
+                    picker.cameraDevice = .rear
+                } else if UIImagePickerController.isCameraDeviceAvailable(.front) {
+                    picker.cameraDevice = .front
+                }
+            }
         case .photoLibrary:
             picker.sourceType = .photoLibrary
         }
-        picker.allowsEditing = false
+        
         return picker
     }
     
@@ -42,11 +64,15 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let image = info[.originalImage] as? UIImage {
                 parent.image = image
             }
-            parent.onDismiss?()
+            picker.dismiss(animated: true) {
+                self.parent.onDismiss?()
+            }
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.onDismiss?()
+            picker.dismiss(animated: true) {
+                self.parent.onDismiss?()
+            }
         }
     }
 }
@@ -182,13 +208,13 @@ struct SelfieCaptureView: View {
         .navigationBarBackButtonHidden(true)
         .confirmationDialog("फोटो थप्नुहोस्", isPresented: $showSourcePicker, titleVisibility: .visible) {
             if cameraAvailable {
-                Button("क्यामेरा बाट खिच्नुहोस्") {
+                Button("क्यामेरा खोल्नुहोस्") {
                     showSourcePicker = false
                     imagePickerSource = ImagePickerSourceWrapper(source: .camera(front: true))
                 }
             }
             if libraryAvailable {
-                Button("ग्यालरी बाट छान्नुहोस्") {
+                Button("ग्यालरी खोल्नुहोस्") {
                     showSourcePicker = false
                     imagePickerSource = ImagePickerSourceWrapper(source: .photoLibrary)
                 }
@@ -197,7 +223,7 @@ struct SelfieCaptureView: View {
                 showSourcePicker = false
             }
         } message: {
-            Text("क्यामेरा बाट खिच्नुहोस् वा ग्यालरी बाट फोटो छान्नुहोस्")
+            Text("क्यामेरा खोल्नुहोस् वा ग्यालरी खोल्नुहोस्")
         }
         .sheet(item: $imagePickerSource) { wrapper in
             ImagePicker(image: $selfieImage, source: wrapper.source, onDismiss: {

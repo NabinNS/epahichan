@@ -126,7 +126,7 @@ struct DocumentUploadView: View {
             set: { if !$0 { pendingSlot = nil } }
         ), titleVisibility: .visible) {
             if cameraAvailable {
-                Button("क्यामेरा बाट खिच्नुहोस्") {
+                Button("क्यामेरा खोल्नुहोस्") {
                     if let slot = pendingSlot {
                         pickerContext = DocumentPickerContext(slot: slot, source: .camera(front: false))
                         pendingSlot = nil
@@ -134,7 +134,7 @@ struct DocumentUploadView: View {
                 }
             }
             if libraryAvailable {
-                Button("ग्यालरी बाट छान्नुहोस्") {
+                Button("ग्यालरी खोल्नुहोस्") {
                     if let slot = pendingSlot {
                         pickerContext = DocumentPickerContext(slot: slot, source: .photoLibrary)
                         pendingSlot = nil
@@ -145,7 +145,7 @@ struct DocumentUploadView: View {
                 pendingSlot = nil
             }
         } message: {
-            Text("क्यामेरा बाट खिच्नुहोस् वा ग्यालरी बाट फोटो छान्नुहोस्")
+            Text("क्यामेरा खोल्नुहोस् वा ग्यालरी खोल्नुहोस्")
         }
         .sheet(item: $pickerContext) { ctx in
             ImagePicker(image: $temporaryImage, source: ctx.source, onDismiss: {

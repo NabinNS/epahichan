@@ -22,8 +22,8 @@ struct FamilyDetailEntryView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 40)
-                    VStack(spacing: 32) {
+                    Spacer().frame(height: 16)
+                    VStack(spacing: 24) {
                         headerSection
                         formSection
                     }
@@ -31,7 +31,7 @@ struct FamilyDetailEntryView: View {
                     .onTapGesture {
                         hideKeyboard()
                     }
-                    Spacer().frame(height: 40)
+                    Spacer().frame(height: 20)
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -50,18 +50,18 @@ struct FamilyDetailEntryView: View {
     }
 
     private var headerSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             ZStack {
                 Circle()
                     .fill(Color.activeBlue.opacity(0.15))
-                    .frame(width: 80, height: 80)
+                    .frame(width: 70, height: 70)
                 Image(systemName: "person.2.fill")
-                    .font(.system(size: 36, weight: .semibold))
+                    .font(.system(size: 32, weight: .semibold))
                     .foregroundColor(Color.activeBlue)
             }
-            VStack(spacing: 8) {
+            VStack(spacing: 6) {
                 Text("परिवार विवरण भर्नुहोस्")
-                    .font(.system(size: 22, weight: .bold))
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundColor(isDarkMode ? .white : .primary)
                     .multilineTextAlignment(.center)
                 Text("बुबा, बाजे र पति/पत्नीको नाम भर्नुहोस्")
@@ -71,7 +71,7 @@ struct FamilyDetailEntryView: View {
                     .padding(.horizontal, 8)
             }
         }
-        .padding(.top, 24)
+        .padding(.top, 8)
         .contentShape(Rectangle())
         .onTapGesture {
             hideKeyboard()
@@ -79,7 +79,7 @@ struct FamilyDetailEntryView: View {
     }
 
     private var formSection: some View {
-        VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: 20) {
             inputRow(label: "बुबाको नाम", text: $fatherName, field: .fatherName)
             inputRow(label: "बाजेको नाम", text: $grandfatherName, field: .grandfatherName)
             inputRow(label: "पति/पत्नीको नाम", text: $spouseName, field: .spouseName)

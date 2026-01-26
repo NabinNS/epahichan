@@ -172,20 +172,20 @@ struct PermanentAddressEntryPage: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 40)
-                    VStack(spacing: 32) {
-                        VStack(spacing: 16) {
+                    Spacer().frame(height: 16)
+                    VStack(spacing: 24) {
+                        VStack(spacing: 12) {
                             ZStack {
                                 Circle()
                                     .fill(Color.activeBlue.opacity(0.15))
-                                    .frame(width: 80, height: 80)
+                                    .frame(width: 70, height: 70)
                                 Image(systemName: "house.fill")
-                                    .font(.system(size: 36, weight: .semibold))
+                                    .font(.system(size: 32, weight: .semibold))
                                     .foregroundColor(Color.activeBlue)
                             }
-                            VStack(spacing: 8) {
+                            VStack(spacing: 6) {
                                 Text("स्थायी ठेगाना")
-                                    .font(.system(size: 22, weight: .bold))
+                                    .font(.system(size: 20, weight: .bold))
                                     .foregroundColor(isDarkMode ? .white : .primary)
                                     .multilineTextAlignment(.center)
                                 Text("आफ्नो स्थायी ठेगानाको विवरण भर्नुहोस्")
@@ -195,12 +195,12 @@ struct PermanentAddressEntryPage: View {
                                     .padding(.horizontal, 8)
                             }
                         }
-                        .padding(.top, 24)
+                        .padding(.top, 8)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             hideKeyboard()
                         }
-                        VStack(alignment: .leading, spacing: 24) {
+                        VStack(alignment: .leading, spacing: 20) {
                             PermanentAddressFormView(
                                 province: $province,
                                 localBody: $localBody,
@@ -240,7 +240,7 @@ struct PermanentAddressEntryPage: View {
                         .onTapGesture {
                             hideKeyboard()
                         }
-                        Spacer().frame(height: 40)
+                        Spacer().frame(height: 20)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
