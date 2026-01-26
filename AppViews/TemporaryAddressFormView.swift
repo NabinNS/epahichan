@@ -34,7 +34,7 @@ struct TemporaryAddressFormView: View {
             HStack(spacing: 10) {
                 Image(systemName: "building.2.fill")
                     .font(.system(size: 18))
-                    .foregroundColor(Color.activeBlue)
+                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
                 Text("अस्थायी ठेगाना")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -181,7 +181,7 @@ struct TemporaryAddressEntryPage: View {
                                     .frame(width: 70, height: 70)
                                 Image(systemName: "building.2.fill")
                                     .font(.system(size: 32, weight: .semibold))
-                                    .foregroundColor(Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
                             }
                             VStack(spacing: 6) {
                                 Text("अस्थायी ठेगाना")

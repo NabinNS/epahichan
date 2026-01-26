@@ -24,7 +24,7 @@ struct ProfileView: View {
                                 
                                 Image(systemName: "person.circle.fill")
                                     .font(.system(size: 60))
-                                    .foregroundColor(Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
                             }
                             
                             VStack(spacing: 4) {
@@ -84,7 +84,7 @@ struct ProfileView: View {
             HStack(spacing: 16) {
                 Image(systemName: icon)
                     .font(.system(size: 20))
-                    .foregroundColor(Color.activeBlue)
+                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
                     .frame(width: 32, height: 32)
                 
                 Text(title)

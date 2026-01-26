@@ -136,7 +136,7 @@ struct DashboardView: View {
                         Text("मेरो प्रोफाइल")
                             .font(.system(size: 12, weight: selectedTab == 1 ? .semibold : .regular))
                     }
-                    .foregroundColor(selectedTab == 1 ? Color.activeBlue : (isDarkMode ? .white.opacity(0.6) : .secondary))
+                    .foregroundColor(selectedTab == 1 ? (isDarkMode ? .cyan : Color.activeBlue) : (isDarkMode ? .white.opacity(0.6) : .secondary))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
                 }
@@ -181,7 +181,7 @@ struct DashboardView: View {
                 
                 Image(systemName: "person.crop.circle.badge.exclamationmark")
                     .font(.system(size: 32, weight: .semibold))
-                    .foregroundColor(Color.activeBlue)
+                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
             }
             
             VStack(spacing: 8) {
@@ -231,7 +231,7 @@ struct DashboardView: View {
                 Text("\(completedCount)/\(progressSteps.count)")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.activeBlue)
+                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
             }
             
             progressBar
