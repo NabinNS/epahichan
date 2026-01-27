@@ -1,88 +1,11 @@
 import SwiftUI
 import UIKit
 
-enum ImagePickerSource {
-    case camera(front: Bool)
-    case photoLibrary
-}
-
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    let source: ImagePickerSource
-    var onDismiss: (() -> Void)?
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        picker.allowsEditing = false
-        
-        switch source {
-        case .camera(let front):
-            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-                // Fallback to photo library if camera is not available
-                picker.sourceType = .photoLibrary
-                return picker
-            }
-            picker.sourceType = .camera
-            picker.modalPresentationStyle = .fullScreen
-            
-            // Check if the requested camera device is available
-            if front {
-                if UIImagePickerController.isCameraDeviceAvailable(.front) {
-                    picker.cameraDevice = .front
-                } else if UIImagePickerController.isCameraDeviceAvailable(.rear) {
-                    picker.cameraDevice = .rear
-                }
-            } else {
-                if UIImagePickerController.isCameraDeviceAvailable(.rear) {
-                    picker.cameraDevice = .rear
-                } else if UIImagePickerController.isCameraDeviceAvailable(.front) {
-                    picker.cameraDevice = .front
-                }
-            }
-        case .photoLibrary:
-            picker.sourceType = .photoLibrary
-        }
-        
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                parent.image = image
-            }
-            picker.dismiss(animated: true) {
-                self.parent.onDismiss?()
-            }
-        }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true) {
-                self.parent.onDismiss?()
-            }
-        }
-    }
-}
-
 struct SelfieCaptureView: View {
     @State private var selfieImage: UIImage?
     @State private var showSourcePicker = false
     @State private var imagePickerSource: ImagePickerSourceWrapper?
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
     
     private var isDarkMode: Bool { colorScheme == .dark }
     
@@ -169,33 +92,16 @@ struct SelfieCaptureView: View {
                                 }
                             }
                             
-                            HStack(spacing: 12) {
-                                Button(action: { dismiss() }) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "chevron.left")
-                                            .font(.system(size: 16, weight: .semibold))
-                                        Text("पछाडि जानुहोस्")
-                                            .font(.system(size: 18, weight: .semibold))
-                                    }
+                            NavigationLink(destination: LocationSelectionView()) {
+                                Text("अगाडि बढ्नुहोस्")
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 56)
-                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .background(Color.activeBlue)
                                     .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
-                                
-                                NavigationLink(destination: LocationSelectionView()) {
-                                    Text("अगाडि बढ्नुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(Color.activeBlue)
-                                        .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
                             }
+                            .buttonStyle(.plain)
                         }
                         .padding(.horizontal, 24)
                         Spacer().frame(height: 40)
@@ -205,24 +111,18 @@ struct SelfieCaptureView: View {
         }
         .navigationTitle("सेल्फी")
         .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog("फोटो थप्नुहोस्", isPresented: $showSourcePicker, titleVisibility: .visible) {
-            if cameraAvailable {
-                Button("क्यामेरा खोल्नुहोस्") {
-                    showSourcePicker = false
+        .sheet(isPresented: $showSourcePicker) {
+            PhotoSourcePickerSheet(
+                isPresented: $showSourcePicker,
+                cameraAvailable: cameraAvailable,
+                libraryAvailable: libraryAvailable,
+                onCameraSelected: {
                     imagePickerSource = ImagePickerSourceWrapper(source: .camera(front: true))
-                }
-            }
-            if libraryAvailable {
-                Button("ग्यालरी खोल्नुहोस्") {
-                    showSourcePicker = false
+                },
+                onLibrarySelected: {
                     imagePickerSource = ImagePickerSourceWrapper(source: .photoLibrary)
                 }
-            }
-            Button("रद्द", role: .cancel) {
-                showSourcePicker = false
-            }
-        } message: {
-            Text("क्यामेरा खोल्नुहोस् वा ग्यालरी खोल्नुहोस्")
+            )
         }
         .sheet(item: $imagePickerSource) { wrapper in
             ImagePicker(image: $selfieImage, source: wrapper.source, onDismiss: {
@@ -230,11 +130,6 @@ struct SelfieCaptureView: View {
             })
         }
     }
-}
-
-private struct ImagePickerSourceWrapper: Identifiable {
-    let id = UUID()
-    let source: ImagePickerSource
 }
 
 #Preview {

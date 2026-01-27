@@ -20,7 +20,6 @@ struct DocumentUploadView: View {
     @State private var pickerContext: DocumentPickerContext?
     @State private var temporaryImage: UIImage?
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
 
     private var isDarkMode: Bool { colorScheme == .dark }
     private var cameraAvailable: Bool { UIImagePickerController.isSourceTypeAvailable(.camera) }
@@ -84,33 +83,16 @@ struct DocumentUploadView: View {
                                 )
                             }
 
-                            HStack(spacing: 12) {
-                                Button(action: { dismiss() }) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "chevron.left")
-                                            .font(.system(size: 16, weight: .semibold))
-                                        Text("पछाडि जानुहोस्")
-                                            .font(.system(size: 18, weight: .semibold))
-                                    }
+                            NavigationLink(destination: SelfieCaptureView()) {
+                                Text("अगाडि बढ्नुहोस्")
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 56)
-                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .background(Color.activeBlue)
                                     .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
-
-                                NavigationLink(destination: SelfieCaptureView()) {
-                                    Text("अगाडि बढ्नुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(Color.activeBlue)
-                                        .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
                             }
+                            .buttonStyle(.plain)
                         }
                         .padding(.horizontal, 24)
                         Spacer().frame(height: 40)
@@ -120,31 +102,30 @@ struct DocumentUploadView: View {
         }
         .navigationTitle("फोटो अपलोड")
         .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog("फोटो थप्नुहोस्", isPresented: Binding(
+        .sheet(isPresented: Binding(
             get: { pendingSlot != nil },
             set: { if !$0 { pendingSlot = nil } }
-        ), titleVisibility: .visible) {
-            if cameraAvailable {
-                Button("क्यामेरा खोल्नुहोस्") {
+        )) {
+            PhotoSourcePickerSheet(
+                isPresented: Binding(
+                    get: { pendingSlot != nil },
+                    set: { if !$0 { pendingSlot = nil } }
+                ),
+                cameraAvailable: cameraAvailable,
+                libraryAvailable: libraryAvailable,
+                onCameraSelected: {
                     if let slot = pendingSlot {
                         pickerContext = DocumentPickerContext(slot: slot, source: .camera(front: false))
                         pendingSlot = nil
                     }
-                }
-            }
-            if libraryAvailable {
-                Button("ग्यालरी खोल्नुहोस्") {
+                },
+                onLibrarySelected: {
                     if let slot = pendingSlot {
                         pickerContext = DocumentPickerContext(slot: slot, source: .photoLibrary)
                         pendingSlot = nil
                     }
                 }
-            }
-            Button("रद्द", role: .cancel) {
-                pendingSlot = nil
-            }
-        } message: {
-            Text("क्यामेरा खोल्नुहोस् वा ग्यालरी खोल्नुहोस्")
+            )
         }
         .sheet(item: $pickerContext) { ctx in
             ImagePicker(image: $temporaryImage, source: ctx.source, onDismiss: {
