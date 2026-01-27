@@ -3,7 +3,6 @@ import SwiftUI
 struct DocumentSelectionView: View {
     @State private var selectedDocument: String? = nil
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
     
     private var isDarkMode: Bool { colorScheme == .dark }
     
@@ -83,35 +82,18 @@ struct DocumentSelectionView: View {
                                 }
                             }
                             
-                            HStack(spacing: 12) {
-                                Button(action: { dismiss() }) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "chevron.left")
-                                            .font(.system(size: 16, weight: .semibold))
-                                        Text("पछाडि जानुहोस्")
-                                            .font(.system(size: 18, weight: .semibold))
-                                    }
+                            NavigationLink(destination: DocumentUploadView(documentType: selectedDocument ?? documents[0])) {
+                                Text("अगाडि बढ्नुहोस्")
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 56)
-                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .background(Color.activeBlue)
                                     .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
-                                
-                                NavigationLink(destination: DocumentUploadView(documentType: selectedDocument ?? documents[0])) {
-                                    Text("अगाडि बढ्नुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(Color.activeBlue)
-                                        .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
-                                .disabled(selectedDocument == nil)
-                                .opacity(selectedDocument == nil ? 0.6 : 1.0)
                             }
+                            .buttonStyle(.plain)
+                            .disabled(selectedDocument == nil)
+                            .opacity(selectedDocument == nil ? 0.6 : 1.0)
                         }
                         .padding(.horizontal, 24)
                         Spacer().frame(height: 40)
@@ -121,7 +103,6 @@ struct DocumentSelectionView: View {
         }
         .navigationTitle("कागज छान्नुहोस्")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 }
 

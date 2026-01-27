@@ -129,7 +129,6 @@ struct SignUpFormView: View {
         }
         .navigationTitle("साइन अप")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 
 }

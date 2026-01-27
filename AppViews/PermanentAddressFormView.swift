@@ -256,7 +256,6 @@ struct PermanentAddressEntryPage: View {
         }
         .navigationTitle("स्थायी ठेगाना")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .alert("पुष्टि गर्नुहोस्", isPresented: $showConfirmation) {
             Button("रद्द", role: .cancel) {}
             Button("पेश गर्नुहोस्") {

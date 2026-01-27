@@ -224,7 +224,6 @@ struct CitizenshipDetailEntryView: View {
         }
         .navigationTitle("नागरिकता")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showDistrictPicker) {
             DistrictPickerView(selectedDistrict: $selectedDistrict, districts: districts)
         }

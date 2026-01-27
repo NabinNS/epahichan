@@ -76,7 +76,6 @@ struct MyDocumentsView: View {
         }
         .navigationTitle("मेरो कागज")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 }
 

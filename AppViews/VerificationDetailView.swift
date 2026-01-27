@@ -9,7 +9,6 @@ struct VerificationDetailView: View {
     var verificationLocation: String = "काठमाडौं, केंद्रीय कार्यालय"
 
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
     private var isDarkMode: Bool { colorScheme == .dark }
 
     var body: some View {
@@ -119,32 +118,16 @@ struct VerificationDetailView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
 
-                            HStack(spacing: 12) {
-                                Button(action: { dismiss() }) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "chevron.left")
-                                            .font(.system(size: 16, weight: .semibold))
-                                        Text("पछाडि जानुहोस्")
-                                            .font(.system(size: 18, weight: .semibold))
-                                    }
+                            NavigationLink(destination: DashboardView()) {
+                                Text("प्रमाणीकरण को लागि पठाउनुहोस्")
+                                    .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 56)
-                                    .background(isDarkMode ? Color.white.opacity(0.25) : Color(.systemGray))
+                                    .background(Color.activeBlue)
                                     .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
-                                NavigationLink(destination: DashboardView()) {
-                                    Text("प्रमाणीकरण को लागि पठाउनुहोस्")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 56)
-                                        .background(Color.activeBlue)
-                                        .cornerRadius(14)
-                                }
-                                .buttonStyle(.plain)
                             }
+                            .buttonStyle(.plain)
                         }
                         .padding(.horizontal, 24)
                         Spacer().frame(height: 40)
@@ -154,7 +137,6 @@ struct VerificationDetailView: View {
         }
         .navigationTitle("विवरण")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 
     private func detailCard<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {

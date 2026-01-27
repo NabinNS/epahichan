@@ -180,7 +180,6 @@ struct LocationSelectionView: View {
         }
         .navigationTitle("स्थान छान्नुहोस्")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 }
 

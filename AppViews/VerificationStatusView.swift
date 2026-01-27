@@ -64,7 +64,6 @@ struct VerificationStatusView: View {
         }
         .navigationTitle("स्थिति")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -189,7 +189,6 @@ struct LoginFormView: View {
             }
             .navigationTitle("")
             .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
         }
     }
 

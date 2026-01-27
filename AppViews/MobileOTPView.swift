@@ -135,7 +135,6 @@ struct MobileOTPView: View {
         }
         .navigationTitle("मोबाइल OTP")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 
 }

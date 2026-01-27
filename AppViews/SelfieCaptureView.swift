@@ -205,7 +205,6 @@ struct SelfieCaptureView: View {
         }
         .navigationTitle("सेल्फी")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .confirmationDialog("फोटो थप्नुहोस्", isPresented: $showSourcePicker, titleVisibility: .visible) {
             if cameraAvailable {
                 Button("क्यामेरा खोल्नुहोस्") {

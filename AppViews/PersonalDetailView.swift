@@ -43,7 +43,6 @@ struct PersonalDetailView: View {
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .navigationTitle("ब्यक्तिगत विवरण")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 
     @ViewBuilder

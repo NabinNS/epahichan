@@ -120,7 +120,6 @@ struct DocumentUploadView: View {
         }
         .navigationTitle("फोटो अपलोड")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .confirmationDialog("फोटो थप्नुहोस्", isPresented: Binding(
             get: { pendingSlot != nil },
             set: { if !$0 { pendingSlot = nil } }

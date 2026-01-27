@@ -174,7 +174,6 @@ struct PasswordSetupView: View {
         }
         .navigationTitle("पासवर्ड")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 
 }
