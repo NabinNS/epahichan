@@ -66,7 +66,7 @@ struct CitizenshipDetailEntryView: View {
 
                                 Image(systemName: "doc.text.fill")
                                     .font(.system(size: 32, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
 
                             VStack(spacing: 6) {
@@ -329,7 +329,7 @@ struct ProvincePickerView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("रद्द") { dismiss() }
-                        .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                        .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                 }
             }
         }

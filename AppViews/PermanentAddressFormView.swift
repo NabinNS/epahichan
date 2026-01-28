@@ -34,7 +34,7 @@ struct PermanentAddressFormView: View {
             HStack(spacing: 10) {
                 Image(systemName: "house.fill")
                     .font(.system(size: 18))
-                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                 Text("स्थायी ठेगाना")
                     .font(.subheadline)
                     .fontWeight(.semibold)
@@ -181,7 +181,7 @@ struct PermanentAddressEntryPage: View {
                                     .frame(width: 70, height: 70)
                                 Image(systemName: "house.fill")
                                     .font(.system(size: 32, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 6) {
                                 Text("स्थायी ठेगाना")

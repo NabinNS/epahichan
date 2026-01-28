@@ -54,7 +54,7 @@ struct LocationSelectionView: View {
                                     .frame(width: 80, height: 80)
                                 Image(systemName: "mappin.circle.fill")
                                     .font(.system(size: 36, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 8) {
                                 Text("प्रमाणीकरण ईस्थान छान्नुहोस्")
@@ -114,7 +114,7 @@ struct LocationSelectionView: View {
                                                 Spacer()
                                                 Image(systemName: selectedLocation == location ? "checkmark.circle.fill" : "circle")
                                                     .font(.system(size: 22))
-                                                    .foregroundColor(selectedLocation == location ? (isDarkMode ? .cyan : Color.activeBlue) : (isDarkMode ? .white.opacity(0.4) : .secondary))
+                                                    .foregroundColor(selectedLocation == location ? (isDarkMode ? .darkModeIcon : Color.activeBlue) : (isDarkMode ? .white.opacity(0.4) : .secondary))
                                             }
                                             .padding(16)
                                             .background(

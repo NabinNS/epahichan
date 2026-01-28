@@ -25,7 +25,7 @@ struct SettingsView: View {
                                 
                                 Image(systemName: "person.circle.fill")
                                     .font(.system(size: 60))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             
                             VStack(spacing: 4) {
@@ -126,7 +126,7 @@ struct SettingsView: View {
         HStack(spacing: 16) {
             Image(systemName: icon)
                 .font(.system(size: 20))
-                .foregroundColor(isDestructive ? .red : (isDarkMode ? .cyan : Color.activeBlue))
+                .foregroundColor(isDestructive ? .red : (isDarkMode ? .darkModeIcon : Color.activeBlue))
                 .frame(width: 32, height: 32)
             
             VStack(alignment: .leading, spacing: 4) {

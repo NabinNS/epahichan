@@ -45,7 +45,7 @@ struct AdditionalLocationSelectionView: View {
                                     .frame(width: 80, height: 80)
                                 Image(systemName: "mappin.and.ellipse")
                                     .font(.system(size: 36, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 8) {
                                 Text("प्रमाणीकरण ईस्थान")
@@ -116,7 +116,7 @@ struct AdditionalLocationSelectionView: View {
                                                         Spacer()
                                                         Image(systemName: "plus.circle.fill")
                                                             .font(.system(size: 22))
-                                                            .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                                            .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                                                     }
                                                     .padding(16)
                                                     .background(
@@ -157,7 +157,7 @@ struct AdditionalLocationSelectionView: View {
                                                 HStack(spacing: 12) {
                                                     Image(systemName: "mappin.circle.fill")
                                                         .font(.system(size: 18))
-                                                        .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                                        .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                                                     Text(location)
                                                         .font(.body)
                                                         .foregroundColor(isDarkMode ? .white : .primary)

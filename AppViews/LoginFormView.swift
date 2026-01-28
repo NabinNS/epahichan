@@ -4,6 +4,7 @@ import SwiftUI
 extension Color {
     static let accentViolet = Color(red: 208/255, green: 188/255, blue: 255/255)
     static let activeBlue = Color(red: 0/255, green: 59/255, blue: 149/255) // #003b95
+    static let darkModeIcon = Color(red: 0.4, green: 0.6, blue: 1.0) // Professional light blue for dark mode
 }
 
 // MARK: - LoginFormView

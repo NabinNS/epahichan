@@ -24,7 +24,7 @@ struct SplashScreenView: View {
                         .opacity(opacity)
                     
                     
-                    Text("ई- पहिचान / epahichan")
+                    Text("ई- पहिचान")
                         .font(.system(size: 36, weight: .bold))
                         .foregroundColor(.primary)
                         .opacity(opacity)

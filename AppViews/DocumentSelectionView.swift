@@ -31,7 +31,7 @@ struct DocumentSelectionView: View {
                                     .frame(width: 80, height: 80)
                                 Image(systemName: "doc.text.fill")
                                     .font(.system(size: 36, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 8) {
                                 Text("कागज छान्नुहोस्")
@@ -60,7 +60,7 @@ struct DocumentSelectionView: View {
                                         HStack(spacing: 16) {
                                             Image(systemName: selectedDocument == document ? "checkmark.circle.fill" : "circle")
                                                 .font(.system(size: 22))
-                                                .foregroundColor(selectedDocument == document ? (isDarkMode ? .cyan : Color.activeBlue) : (isDarkMode ? .white.opacity(0.4) : .secondary))
+                                                .foregroundColor(selectedDocument == document ? (isDarkMode ? .darkModeIcon : Color.activeBlue) : (isDarkMode ? .white.opacity(0.4) : .secondary))
                                             
                                             Text(document)
                                                 .font(.body)

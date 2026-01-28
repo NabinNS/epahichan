@@ -27,7 +27,7 @@ struct VerificationDetailView: View {
                                     .frame(width: 80, height: 80)
                                 Image(systemName: "checkmark.shield.fill")
                                     .font(.system(size: 36, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 8) {
                                 Text("विवरण समीक्षा गर्नुहोस्")
@@ -62,7 +62,7 @@ struct VerificationDetailView: View {
                                         HStack(spacing: 12) {
                                             Image(systemName: "doc.fill")
                                                 .font(.system(size: 18))
-                                                .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                                .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                                             Text(doc)
                                                 .font(.body)
                                                 .foregroundColor(isDarkMode ? .white : .primary)
@@ -110,7 +110,7 @@ struct VerificationDetailView: View {
                                 HStack(spacing: 12) {
                                     Image(systemName: "mappin.circle.fill")
                                         .font(.system(size: 22))
-                                        .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                        .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                                     Text(verificationLocation)
                                         .font(.body)
                                         .foregroundColor(isDarkMode ? .white : .primary)

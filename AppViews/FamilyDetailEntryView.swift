@@ -56,7 +56,7 @@ struct FamilyDetailEntryView: View {
                     .frame(width: 70, height: 70)
                 Image(systemName: "person.2.fill")
                     .font(.system(size: 32, weight: .semibold))
-                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
             }
             VStack(spacing: 6) {
                 Text("परिवार विवरण भर्नुहोस्")

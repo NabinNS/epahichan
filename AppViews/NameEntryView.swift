@@ -28,7 +28,7 @@ struct NameEntryView: View {
                                     .frame(width: 80, height: 80)
                                 Image(systemName: "person.text.rectangle.fill")
                                     .font(.system(size: 36, weight: .semibold))
-                                    .foregroundColor(isDarkMode ? .cyan : Color.activeBlue)
+                                    .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 8) {
                                 Text("नाम प्रविष्टि")
