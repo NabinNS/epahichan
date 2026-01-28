@@ -11,7 +11,7 @@ struct PhotoSourcePickerSheet: View {
     private var isDarkMode: Bool { colorScheme == .dark }
     
     private func calculateHeight() -> CGFloat {
-        var buttonCount: CGFloat = 1 // Cancel button
+        var buttonCount: CGFloat = 0
         if cameraAvailable { buttonCount += 1 }
         if libraryAvailable { buttonCount += 1 }
         // Handle bar (8 + 5 + 16) + Title (8 + 8) + Message (24) + Buttons (buttonCount * 68) + Bottom padding (32)
@@ -79,19 +79,6 @@ struct PhotoSourcePickerSheet: View {
                     }
                     .buttonStyle(.plain)
                 }
-                
-                Button(action: {
-                    isPresented = false
-                }) {
-                    Text("रद्द")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(isDarkMode ? .white : .primary)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
-                        .cornerRadius(14)
-                }
-                .buttonStyle(.plain)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
