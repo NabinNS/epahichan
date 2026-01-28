@@ -18,15 +18,19 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         switch source {
         case .camera(let front):
+            // Check camera availability and permissions
             guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
                 // Fallback to photo library if camera is not available
                 picker.sourceType = .photoLibrary
+                picker.modalPresentationStyle = .pageSheet
                 return picker
             }
+            
+            // Set camera source type
             picker.sourceType = .camera
             picker.modalPresentationStyle = .fullScreen
             
-            // Check if the requested camera device is available
+            // Safely check and set camera device
             if front {
                 if UIImagePickerController.isCameraDeviceAvailable(.front) {
                     picker.cameraDevice = .front
@@ -40,9 +44,18 @@ struct ImagePicker: UIViewControllerRepresentable {
                     picker.cameraDevice = .front
                 }
             }
+            
+            // Additional safety: Set camera capture mode
+            if UIImagePickerController.availableMediaTypes(for: .camera)?.contains("public.image") == true {
+                picker.mediaTypes = ["public.image"]
+            }
+            
         case .photoLibrary:
             picker.sourceType = .photoLibrary
             picker.modalPresentationStyle = .pageSheet
+            if UIImagePickerController.availableMediaTypes(for: .photoLibrary)?.contains("public.image") == true {
+                picker.mediaTypes = ["public.image"]
+            }
         }
         
         return picker

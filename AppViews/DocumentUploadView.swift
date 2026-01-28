@@ -159,19 +159,42 @@ struct DocumentUploadView: View {
                     .frame(height: 200)
                     .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-            }
-            Button(action: onAdd) {
-                HStack(spacing: 12) {
-                    Image(systemName: "photo.badge.plus")
-                        .font(.system(size: 18))
-                    Text(image == nil ? "फोटो थप्नुहोस्" : "फोटो बदल्नुहोस्")
-                        .font(.body)
+                    .overlay(
+                        Button(action: onAdd) {
+                            Image(systemName: "camera.fill")
+                                .font(.system(size: 24))
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .background(Color.black.opacity(0.5))
+                                .clipShape(Circle())
+                        }
+                        .buttonStyle(.plain)
+                        .padding(12),
+                        alignment: .topTrailing
+                    )
+            } else {
+                Button(action: onAdd) {
+                    VStack(spacing: 16) {
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 50))
+                            .foregroundColor(isDarkMode ? .white.opacity(0.5) : .secondary)
+                        
+                        Text("फोटो थप्नुहोस्")
+                            .font(.body)
+                            .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 200)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(isDarkMode ? Color.white.opacity(0.2) : Color(.separator), lineWidth: 1)
+                    )
                 }
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(Color.activeBlue)
-                .cornerRadius(14)
+                .buttonStyle(.plain)
             }
         }
     }
