@@ -21,7 +21,7 @@ struct NotificationView: View {
             id: UUID(),
             message: "तपाईंको पहिचान प्रमाणीकरण प्रक्रियामा छ",
             type: .info,
-            time: "२ दिन अघि",
+            time: "२ दिन",
             isRead: true
         ),
         NotificationItem(
