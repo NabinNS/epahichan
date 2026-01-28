@@ -43,12 +43,12 @@ struct PhotoSourcePickerSheet: View {
                         onCameraSelected()
                         isPresented = false
                     }) {
-                        HStack(spacing: 12) {
+                        HStack(spacing: 10) {
                             Image(systemName: "camera.fill")
-                                .font(.system(size: 20))
+                                .font(.system(size: 18, weight: .medium))
+                                .frame(width: 24, height: 24)
                             Text("क्यामेरा खोल्नुहोस्")
-                                .font(.system(size: 17))
-                            Spacer()
+                                .font(.system(size: 17, weight: .medium))
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -64,12 +64,12 @@ struct PhotoSourcePickerSheet: View {
                         onLibrarySelected()
                         isPresented = false
                     }) {
-                        HStack(spacing: 12) {
+                        HStack(spacing: 10) {
                             Image(systemName: "photo.on.rectangle")
-                                .font(.system(size: 20))
+                                .font(.system(size: 18, weight: .medium))
+                                .frame(width: 24, height: 24)
                             Text("ग्यालरी खोल्नुहोस्")
-                                .font(.system(size: 17))
-                            Spacer()
+                                .font(.system(size: 17, weight: .medium))
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
