@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39047F552F29EC0500B8722A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39047F532F29EC0400B8722A /* ImagePicker.swift */; };
+		39047F562F29EC0500B8722A /* PhotoSourcePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39047F542F29EC0500B8722A /* PhotoSourcePickerSheet.swift */; };
 		393BC9812F22346900B82BBF /* FormBackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */; };
 		396E0F7D2F1F85B1009F2050 /* epahichanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F7C2F1F85B1009F2050 /* epahichanApp.swift */; };
 		396E0F7F2F1F85B1009F2050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E0F7E2F1F85B1009F2050 /* ContentView.swift */; };
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39047F532F29EC0400B8722A /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		39047F542F29EC0500B8722A /* PhotoSourcePickerSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSourcePickerSheet.swift; sourceTree = "<group>"; };
 		393BC9802F22346900B82BBF /* FormBackgroundGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormBackgroundGradient.swift; sourceTree = "<group>"; };
 		396E0F792F1F85B1009F2050 /* epahichan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = epahichan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		396E0F7C2F1F85B1009F2050 /* epahichanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = epahichanApp.swift; sourceTree = "<group>"; };
@@ -149,7 +153,6 @@
 		396E0F7B2F1F85B1009F2050 /* epahichan */ = {
 			isa = PBXGroup;
 			children = (
-				397FA6362F209C1A001481AF /* SplashLogo.png */,
 				396E0F7C2F1F85B1009F2050 /* epahichanApp.swift */,
 				396E0F7E2F1F85B1009F2050 /* ContentView.swift */,
 				396E0F802F1F85B3009F2050 /* Assets.xcassets */,
@@ -186,6 +189,8 @@
 		397C64A62F1F966700BA09AE /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
+				39047F532F29EC0400B8722A /* ImagePicker.swift */,
+				39047F542F29EC0500B8722A /* PhotoSourcePickerSheet.swift */,
 				3976DFCE2F238EE600B3D510 /* MainTabView.swift */,
 				3976DFCD2F238EE600B3D510 /* ProfileView.swift */,
 				3976DFCC2F238EE600B3D510 /* SettingsView.swift */,
@@ -351,6 +356,7 @@
 				397FA63E2F20DF5F001481AF /* PersonalDetailView.swift in Sources */,
 				397219B92F21504F00145C81 /* NotificationView.swift in Sources */,
 				397FA63C2F20DF5F001481AF /* DashboardView.swift in Sources */,
+				39047F562F29EC0500B8722A /* PhotoSourcePickerSheet.swift in Sources */,
 				397F047F2F1FF3DB006031FF /* LocationSelectionView.swift in Sources */,
 				397FA6352F209B04001481AF /* SplashScreenView.swift in Sources */,
 				3976DFD12F238EE600B3D510 /* MainTabView.swift in Sources */,
@@ -374,6 +380,7 @@
 				397F04752F1FE2B7006031FF /* MobileOTPView.swift in Sources */,
 				397F04772F1FEA12006031FF /* NameEntryView.swift in Sources */,
 				397F047A2F1FEF56006031FF /* DocumentSelectionView.swift in Sources */,
+				39047F552F29EC0500B8722A /* ImagePicker.swift in Sources */,
 				397F047B2F1FEF56006031FF /* DocumentUploadView.swift in Sources */,
 				397C64A82F1F988500BA09AE /* LoginFormView.swift in Sources */,
 			);
@@ -543,8 +550,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to your camera to take photos for document verification.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to your photo library to select photos for document verification.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs access to save photos to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to your photo library to select photos for document verification.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -575,8 +582,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to your camera to take photos for document verification.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to your photo library to select photos for document verification.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs access to save photos to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to your photo library to select photos for document verification.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
