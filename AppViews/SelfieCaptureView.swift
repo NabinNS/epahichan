@@ -19,7 +19,7 @@ struct SelfieCaptureView: View {
             
             ScrollView {
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 40)
+                    Spacer().frame(height: 20)
                     VStack(spacing: 32) {
                         VStack(spacing: 16) {
                             StepIndicatorView(current: 4, total: 5)
@@ -80,7 +80,7 @@ struct SelfieCaptureView: View {
                                                 .foregroundColor(isDarkMode ? .white.opacity(0.6) : .secondary)
                                         }
                                         .frame(maxWidth: .infinity)
-                                        .frame(height: 250)
+                                        .frame(height: 200)
                                         .background(
                                             RoundedRectangle(cornerRadius: 12)
                                                 .fill(isDarkMode ? Color.white.opacity(0.15) : Color(.secondarySystemBackground))

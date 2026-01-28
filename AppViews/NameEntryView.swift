@@ -17,7 +17,7 @@ struct NameEntryView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 40)
+                    Spacer().frame(height: 20)
                     VStack(spacing: 32) {
                         VStack(spacing: 16) {
                             StepIndicatorView(current: 1, total: 5)

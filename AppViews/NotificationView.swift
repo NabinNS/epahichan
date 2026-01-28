@@ -129,6 +129,9 @@ enum NotificationType {
 struct NotificationCard: View {
     @Binding var notifications: [NotificationItem]
     let onDismiss: () -> Void
+    @Environment(\.colorScheme) private var colorScheme
+    
+    private var isDarkMode: Bool { colorScheme == .dark }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -163,10 +166,13 @@ struct NotificationCard: View {
             .frame(maxHeight: 400)
         }
         .frame(width: 320)
-        .background(Color.white)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(isDarkMode ? Color(.secondarySystemBackground) : Color(.systemBackground))
+        )
         .overlay(
-            Rectangle()
-                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(isDarkMode ? Color.white.opacity(0.15) : Color.blue.opacity(0.2), lineWidth: 1)
         )
     }
 }

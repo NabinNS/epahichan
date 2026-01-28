@@ -30,13 +30,7 @@ struct PhotoSourcePickerSheet: View {
             Text("फोटो थप्नुहोस्")
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(isDarkMode ? .white : .primary)
-                .padding(.bottom, 8)
-            
-            Text("क्यामेरा खोल्नुहोस् वा ग्यालरी खोल्नुहोस्")
-                .font(.subheadline)
-                .foregroundColor(isDarkMode ? .white.opacity(0.7) : .secondary)
-                .padding(.bottom, 24)
-            
+                .padding(.bottom, 8)  
             VStack(spacing: 12) {
                 if cameraAvailable {
                     Button(action: {

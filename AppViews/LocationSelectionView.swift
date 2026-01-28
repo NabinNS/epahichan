@@ -43,7 +43,7 @@ struct LocationSelectionView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    Spacer().frame(height: 40)
+                    Spacer().frame(height: 20)
                     VStack(spacing: 32) {
                         VStack(spacing: 16) {
                             StepIndicatorView(current: 5, total: 5)
@@ -57,7 +57,7 @@ struct LocationSelectionView: View {
                                     .foregroundColor(isDarkMode ? .darkModeIcon : Color.activeBlue)
                             }
                             VStack(spacing: 8) {
-                                Text("प्रमाणीकरण ईस्थान छान्नुहोस्")
+                                Text("प्रमाणीकरण स्थान छान्नुहोस्")
                                     .font(.system(size: 22, weight: .bold))
                                     .foregroundColor(isDarkMode ? .white : .primary)
                                     .multilineTextAlignment(.center)
