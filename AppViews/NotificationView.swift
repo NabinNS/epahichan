@@ -28,18 +28,18 @@ struct NotificationView: View {
             id: UUID(),
             message: "नयाँ ईस्थान मा प्रमाणीकरण अनुरोध पठाइएको छ",
             type: .success,
-            time: "३ दिन अघि",
+            time: "३ दिन",
             isRead: true
         ),
         NotificationItem(
             id: UUID(),
             message: "प्रमाणीकरण दस्तावेज अपूर्ण छ",
             type: .error,
-            time: "४ दिन अघि",
+            time: "४ दिन",
             isRead: true
         )
     ]
-    
+
 
 
     var unreadCount: Int {
