@@ -45,48 +45,68 @@ struct NotificationView: View {
     }
     
     var body: some View {
-        VStack(alignment: .trailing, spacing: 0) {
-            Button(action: {
-                withAnimation {
-                    showNotifications.toggle()
+        GeometryReader { geometry in
+            ZStack(alignment: .topTrailing) {
+                // Full-screen tap detector when notifications are shown
+                if showNotifications {
+                    Color.clear
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            withAnimation {
+                                showNotifications = false
+                            }
+                        }
                 }
-            }) {
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: "bell.fill")
-                        .font(.title3)
-                        .foregroundColor(.primary)
-                        .frame(width: 44, height: 44)
-                    
-                    if unreadCount > 0 {
-                        Text("\(unreadCount)")
-                            .font(.caption2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding(4)
-                            .background(Color.red)
-                            .clipShape(Circle())
-                            .offset(x: 8, y: -8)
-                    }
-                }
-            }
-            .padding(.trailing, 16)
-            .padding(.top, 8)
-            
-            if showNotifications {
-                NotificationCard(
-                    notifications: $notifications,
-                    onDismiss: {
+                
+                VStack(alignment: .trailing, spacing: 0) {
+                    Button(action: {
                         withAnimation {
-                            showNotifications = false
+                            showNotifications.toggle()
+                        }
+                    }) {
+                        ZStack(alignment: .topTrailing) {
+                            Image(systemName: "bell.fill")
+                                .font(.title3)
+                                .foregroundColor(.primary)
+                                .frame(width: 44, height: 44)
+                            
+                            if unreadCount > 0 {
+                                Text("\(unreadCount)")
+                                    .font(.caption2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding(4)
+                                    .background(Color.red)
+                                    .clipShape(Circle())
+                                    .offset(x: 8, y: -8)
+                            }
                         }
                     }
-                )
-                .padding(.trailing, 16)
-                .padding(.top, 8)
-                .transition(.opacity.combined(with: .move(edge: .top)))
+                    .padding(.trailing, 16)
+                    .padding(.top, 8)
+                    
+                    if showNotifications {
+                        NotificationCard(
+                            notifications: $notifications,
+                            onDismiss: {
+                                withAnimation {
+                                    showNotifications = false
+                                }
+                            }
+                        )
+                        .padding(.trailing, 16)
+                        .padding(.top, 8)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                        .onTapGesture {
+                            // Prevent tap from propagating to background
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .trailing)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
     }
 }
 
@@ -180,7 +200,8 @@ struct NotificationCard: View {
 struct NotificationRow: View {
     let notification: NotificationItem
     let onTap: () -> Void
-    
+
+ 
     var body: some View {
         Button(action: onTap) {
             HStack(alignment: .top, spacing: 12) {
