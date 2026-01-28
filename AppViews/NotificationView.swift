@@ -39,6 +39,7 @@ struct NotificationView: View {
             isRead: true
         )
     ]
+
     
     var unreadCount: Int {
         notifications.filter { !$0.isRead }.count
@@ -201,7 +202,7 @@ struct NotificationRow: View {
     let notification: NotificationItem
     let onTap: () -> Void
 
- 
+
     var body: some View {
         Button(action: onTap) {
             HStack(alignment: .top, spacing: 12) {
