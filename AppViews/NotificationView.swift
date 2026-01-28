@@ -39,8 +39,9 @@ struct NotificationView: View {
             isRead: true
         )
     ]
-
     
+
+
     var unreadCount: Int {
         notifications.filter { !$0.isRead }.count
     }
