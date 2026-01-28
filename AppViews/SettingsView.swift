@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @AppStorage("isDarkMode") private var isDarkModeEnabled = false
     
     private var isDarkMode: Bool { colorScheme == .dark }
     
@@ -42,14 +41,6 @@ struct SettingsView: View {
                         
                         // Settings List
                         VStack(spacing: 16) {
-                            // Dark Mode Toggle
-                            settingsRow(
-                                icon: isDarkModeEnabled ? "moon.fill" : "sun.max.fill",
-                                title: "डार्क मोड",
-                                subtitle: isDarkModeEnabled ? "डार्क मोड सक्षम" : "लाइट मोड सक्षम",
-                                toggle: $isDarkModeEnabled
-                            )
-                            
                             // Language
                             NavigationLink(destination: Text("भाषा सेटिङ")) {
                                 settingsRow(
@@ -119,7 +110,6 @@ struct SettingsView: View {
         icon: String,
         title: String,
         subtitle: String,
-        toggle: Binding<Bool>? = nil,
         showChevron: Bool = false,
         isDestructive: Bool = false
     ) -> some View {
@@ -141,10 +131,7 @@ struct SettingsView: View {
             
             Spacer()
             
-            if let toggle = toggle {
-                Toggle("", isOn: toggle)
-                    .labelsHidden()
-            } else if showChevron {
+            if showChevron {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(isDarkMode ? .white.opacity(0.4) : .secondary)

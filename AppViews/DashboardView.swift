@@ -4,7 +4,6 @@ struct DashboardView: View {
     @State private var showNotifications = false
     @State private var selectedTab = 0
     @Environment(\.colorScheme) private var colorScheme
-    @AppStorage("isDarkMode") private var isDarkModeEnabled = false
     
     private var isDarkMode: Bool { colorScheme == .dark }
     
@@ -52,7 +51,6 @@ struct DashboardView: View {
         .navigationBarHidden(true)
         .overlay(notificationOverlay, alignment: .topTrailing)
         .ignoresSafeArea(.container, edges: .bottom) // This removes the bottom gap
-        .preferredColorScheme(isDarkModeEnabled ? .dark : .light)
     }
     
     private var headerSection: some View {
